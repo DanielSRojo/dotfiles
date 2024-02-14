@@ -1,0 +1,16 @@
+# Alacritty Configuration File (https://github.com/alacritty/alacritty)
+
+# Font configuration
+[font]
+# The normal (roman) font face to use.
+normal = { family = "FiraCode Nerd Font", style = "Regular" }
+
+# The bold font face
+bold = { family = "FiraCode Nerd Font", style = "Bold" }
+
+# The italic font face
+italic = { family = "FiraCode Nerd Font", style = "Italic" }
+
+# Point size of the font
+size =   14.0
+
