@@ -1,16 +1,14 @@
 # Alacritty Configuration File (https://github.com/alacritty/alacritty)
 
-# Font configuration
+[shell]
+program = "/usr/bin/fish"
+
 [font]
-# The normal (roman) font face to use.
 normal = { family = "FiraCode Nerd Font", style = "Regular" }
-
-# The bold font face
 bold = { family = "FiraCode Nerd Font", style = "Bold" }
-
-# The italic font face
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
+size =   12.0
 
-# Point size of the font
-size =   14.0
+[window]
+dimensions = { columns =  180, lines=  55 }
 

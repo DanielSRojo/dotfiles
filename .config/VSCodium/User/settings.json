@@ -1,0 +1,21 @@
+{
+    "workbench.colorTheme": "Pop N' Lock Theme by Luxcium ✨ Alexis's Black ⛷",
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.autoSave": "afterDelay",
+    "explorer.confirmDragAndDrop": false,
+    "editor.minimap.enabled": false,
+    "redhat.telemetry.enabled": false,
+    "go.toolsManagement.autoUpdate": true,
+    "files.associations": {
+        "*.yaml": "jinja-yaml"
+    },
+    "workbench.panel.defaultLocation": "right",
+    "security.workspace.trust.untrustedFiles": "open",
+    "security.workspace.trust.enabled": false,
+    "editor.fontVariations": false,
+    "editor.fontFamily": "'Monaspace Argon', monospace",
+    "editor.fontLigatures": true,
+    "go.logging.level": "verbose"
+}
