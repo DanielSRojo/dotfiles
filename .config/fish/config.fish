@@ -10,6 +10,8 @@ enable_transience
 
 # Add custom paths to fish_user_paths
 set -U fish_user_paths $HOME/.local/bin $fish_user_paths
+set -U fish_user_paths $HOME/go/bin $fish_user_paths
+set -U fish_user_paths /usr/local/go/bin $fish_user_paths
 
 # Set up zoxide
 zoxide init fish | source
