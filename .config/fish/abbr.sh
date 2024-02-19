@@ -7,6 +7,7 @@ abbr -a gr 'go run .'
 
 # Git
 abbr -a gd1 'git diff HEAD~1'
+abbr -a gbv 'git branch -vv'
 
 # Terraform
 abbr -a tf 'terraform'
@@ -30,6 +31,7 @@ abbr -a kga 'kubectl get services,deployments,pods --all-namespaces'
 abbr -a kgnr 'kubectl get pods -A | grep -v Running'
 abbr -a ksdr1 'kubectl scale deployment --replicas=1 --all'
 abbr -a kdebug 'kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh'
+abbr -a kgno 'kubectl get nodes'
 abbr -a kgnow 'kubectl get nodes -o wide'
 abbr -a kgo 'kubectl get deployments.apps,svc,pods,cm,secrets'
 abbr -a kgep 'kubectl get pod --all-namespaces --field-selector=status.phase==Failed'
