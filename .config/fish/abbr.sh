@@ -37,6 +37,8 @@ abbr -a kgo 'kubectl get deployments.apps,svc,pods,cm,secrets'
 abbr -a kgep 'kubectl get pod --all-namespaces --field-selector=status.phase==Failed'
 abbr -a kdep 'kubectl delete pod --all-namespaces --field-selector=status.phase==Failed'
 abbr -a ekc 'set -x KUBECONFIG ~/.kube/config'
+abbr -a kcn 'kubectl config set-context --current --namespace'
+
 
 # Docker
 abbr -a drma 'docker rm -f (docker ps -a -q)'
