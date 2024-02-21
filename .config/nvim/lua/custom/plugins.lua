@@ -159,6 +159,14 @@ local plugins = {
     },
   },
 
+  {
+    "max397574/better-escape.nvim",
+    lazy = false,
+    config = function()
+      require("better_escape").setup()
+    end,
+  },
+
   -- {
   --   "nvim-neorg/neorg",
   --   build = ":Neorg sync-parsers",
