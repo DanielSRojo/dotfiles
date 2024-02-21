@@ -2,6 +2,9 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# Set nvim as editor
+set -x EDITOR nvim
+
 # Enable vi style motion
 fish_vi_key_bindings
 
@@ -25,3 +28,6 @@ enable_transience
 
 # Kubectl completion
 kubectl completion fish | source
+
+# Enable krew
+set -gx PATH $PATH $HOME/.krew/bin
