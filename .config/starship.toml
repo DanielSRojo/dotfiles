@@ -19,6 +19,8 @@ $docker_context\
 [](fg:color_bg3 bg:color_bg1)\
 $time\
 [ ](fg:color_bg1)\
+$fill\
+$kubernetes\
 $line_break$character"""
 
 palette = 'gruvbox_dark'
@@ -47,7 +49,7 @@ Fedora = "󰣛"
 show_always = true
 style_user = "bg:color_orange fg:color_fg0"
 style_root = "bg:color_orange fg:color_fg0"
-format = '[ $user ]($style)'
+format = '[ dsrojo ]($style)'
 
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
@@ -115,6 +117,7 @@ vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
 [kubernetes]
-# format = 'on [⛵ ($user on )($cluster in )$context \($namespace\)](dimmed green) '
+symbol = '☸'
+format = '[$symbol $cluster( \($namespace\))]($style)'
 disabled = false
 
