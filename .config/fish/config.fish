@@ -31,3 +31,7 @@ kubectl completion fish | source
 
 # Enable krew
 set -gx PATH $PATH $HOME/.krew/bin
+
+# Direnv hook
+direnv hook fish | source
+
