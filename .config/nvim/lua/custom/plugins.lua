@@ -134,15 +134,12 @@ local plugins = {
     end,
   },
 
+  -- Obsidian plugin
   {
     "epwalsh/obsidian.nvim",
-    version = "*",  -- recommended, use latest release instead of latest commit
+    version = "*",
     lazy = true,
-    -- ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
     event = {
-      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
       "BufReadPre " .. vim.fn.expand "~" .. "/.obsidian/**.md",
       "BufNewFile " .. vim.fn.expand "~" .. "/.obsidian/**.md",
     },
@@ -159,6 +156,7 @@ local plugins = {
     },
   },
 
+  -- Escape vim with jk and jj (removes delay)
   {
     "max397574/better-escape.nvim",
     lazy = false,
@@ -167,42 +165,40 @@ local plugins = {
     end,
   },
 
-  -- {
-  --   "nvim-neorg/neorg",
-  --   build = ":Neorg sync-parsers",
-  --   lazy = false, -- specify lazy = false because some lazy.nvim distributions set lazy = true by default
-  --   -- tag = "*",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   config = function()
-  --     require("neorg").setup {
-  --       load = {
-  --         ["core.defaults"] = {}, -- Loads default behaviour
-  --         ["core.concealer"] = {}, -- Adds pretty icons to your documents
-  --         ["core.dirman"] = { -- Manages Neorg workspaces
-  --           config = {
-  --             workspaces = {
-  --               notes = "~/notes",
-  --             },
-  --           },
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
+  -- Dim inactive portions of code 
+  {
+    "folke/twilight.nvim",
+    lazy = false,
+  },
 
-  -- {
-  -- "ray-x/go.nvim",
-  -- dependencies = {  -- optional packages
-  --   "ray-x/guihua.lua",
-  --   "neovim/nvim-lspconfig",
-  --   "nvim-treesitter/nvim-treesitter",
-  -- },
-  -- config = function()
-  --   require("go").setup()
-  -- end,
-  -- event = {"CmdlineEnter"},
-  -- ft = {"go", 'gomod'},
-  -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  -- },
+  -- Highlight TODO: comments
+  {
+    "folke/todo-comments.nvim",
+    lazy = false,
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
+
+  -- Modify surroundings 
+  {
+    "tpope/vim-surround",
+    lazy = false,
+  },
+
+  -- Distraction free
+  {
+    "junegunn/goyo.vim",
+    ft = "md"
+  },
+
+  -- Vim for writters
+  {
+    "preservim/vim-pencil",
+    ft = "md",
+    config = function()
+      vim.g.pencil_wrap_at = 80
+    end
+  },
+
 }
 return plugins
