@@ -1,6 +1,7 @@
 # System 
 abbr -a ll 'eza -l --icons'
 abbr -a la 'eza -la --icons'
+abbr -a v 'nvim'
 
 # Go
 abbr -a gr 'go run .'
