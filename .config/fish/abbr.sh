@@ -9,6 +9,7 @@ abbr -a gr 'go run .'
 # Git
 abbr -a gd1 'git diff HEAD~1'
 abbr -a gbv 'git branch -vv'
+abbr -a gstall 'git stash --all'
 
 # Terraform
 abbr -a tf 'terraform'
@@ -39,6 +40,7 @@ abbr -a kgep 'kubectl get pod --all-namespaces --field-selector=status.phase==Fa
 abbr -a kdep 'kubectl delete pod --all-namespaces --field-selector=status.phase==Failed'
 abbr -a ekc 'set -x KUBECONFIG ~/.kube/config'
 abbr -a kcn 'kubectl config set-context --current --namespace'
+abbr -a kgn 'kubectl get namespace'
 
 
 # Docker
