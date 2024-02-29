@@ -200,5 +200,23 @@ local plugins = {
     end
   },
 
+  -- Code snapshots
+  {
+    "mistricky/codesnap.nvim",
+    cmd = "CodeSnapPreviewOn",
+    build = "make",
+    opts = {
+      mac_window_bar = true,
+      opacity = false,
+      watermark = "Daniel S. Rojo",
+      editor_font_family = "FiraCode Nerd Font",
+      preview_title = "LibreCode",
+      watermark_font_family = "Pacifico",
+    },
+    config = function (_, opts)
+      require("codesnap").setup(opts)
+    end
+  },
+
 }
 return plugins
