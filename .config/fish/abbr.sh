@@ -1,5 +1,6 @@
 # System 
-abbr -a ll 'eza -l --icons'
+abbr -a l 'eza -l --icons'
+abbr -a ll 'eza -l'
 abbr -a la 'eza -la --icons'
 abbr -a v 'nvim'
 
