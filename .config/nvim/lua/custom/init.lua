@@ -7,4 +7,5 @@ autocmd("VimResized", {
 })
 
 vim.g.tmux_navigator_save_on_switch = 2
+vim.opt_local.conceallevel = 2
 
