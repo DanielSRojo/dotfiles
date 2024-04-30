@@ -3,6 +3,15 @@ abbr -a l 'eza -l --icons'
 abbr -a ll 'eza -l'
 abbr -a la 'eza -la --icons'
 abbr -a v 'nvim'
+abbr -a grn 'grep -rni'
+abbr -a code codium
+abbr -a curlhc 'curl -s -o /dev/null -I -w "%{http_code}"'
+abbr -a clip 'wl-copy'
+abbr -a ls 'eza'
+abbr -a cat 'bat -p'
+abbr -a cy 'bat --language=yaml'
+abbr -a fvim 'fzf --print0 | xargs -0 -o vim'
+abbr -a vim nvim
 
 # Go
 abbr -a gr 'go run .'
@@ -23,7 +32,7 @@ abbr -a tff 'terraform fmt'
 
 # Kubernetes
 abbr -a k 'kubectl'
-abbr -a ekc 'export KUBECONFIG=~/.kube/config'
+# abbr -a ekc 'export KUBECONFIG=~/.kube/config'
 abbr -a ka 'kubectl get --all-namespaces'
 abbr -a kg 'kubectl get pods --all-namespaces | grep'
 abbr -a ks 'kubectl --namespace=kube-system'
@@ -39,7 +48,7 @@ abbr -a kgnow 'kubectl get nodes -o wide'
 abbr -a kgo 'kubectl get deployments.apps,svc,pods,cm,secrets'
 abbr -a kgep 'kubectl get pod --all-namespaces --field-selector=status.phase==Failed'
 abbr -a kdep 'kubectl delete pod --all-namespaces --field-selector=status.phase==Failed'
-abbr -a ekc 'set -x KUBECONFIG ~/.kube/config'
+abbr -a ekc 'set -x KUBECONFIG ~/.kube/config/local'
 abbr -a kcn 'kubectl config set-context --current --namespace'
 abbr -a kgn 'kubectl get namespace'
 
