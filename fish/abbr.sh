@@ -20,6 +20,8 @@ abbr -a gr 'go run .'
 abbr -a gd1 'git diff HEAD~1'
 abbr -a gbv 'git branch -vv'
 abbr -a gstall 'git stash --all'
+abbr -a gswm 'git switch (__git.default_branch)'
+
 
 # Terraform
 abbr -a tf 'terraform'
@@ -32,7 +34,6 @@ abbr -a tff 'terraform fmt'
 
 # Kubernetes
 abbr -a k 'kubectl'
-# abbr -a ekc 'export KUBECONFIG=~/.kube/config'
 abbr -a ka 'kubectl get --all-namespaces'
 abbr -a kg 'kubectl get pods --all-namespaces | grep'
 abbr -a ks 'kubectl --namespace=kube-system'
@@ -48,7 +49,7 @@ abbr -a kgnow 'kubectl get nodes -o wide'
 abbr -a kgo 'kubectl get deployments.apps,svc,pods,cm,secrets'
 abbr -a kgep 'kubectl get pod --all-namespaces --field-selector=status.phase==Failed'
 abbr -a kdep 'kubectl delete pod --all-namespaces --field-selector=status.phase==Failed'
-abbr -a ekc 'set -x KUBECONFIG ~/.kube/config/local'
+abbr -a ekc 'set -x KUBECONFIG ~/.kube/config.d/local'
 abbr -a kcn 'kubectl config set-context --current --namespace'
 abbr -a kgn 'kubectl get namespace'
 

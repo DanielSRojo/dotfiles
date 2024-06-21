@@ -17,5 +17,6 @@
     "editor.fontVariations": false,
     "editor.fontFamily": "'Monaspace Argon', monospace",
     "editor.fontLigatures": true,
-    "go.logging.level": "verbose"
+    "go.logging.level": "verbose",
+    "tabnine.experimentalAutoImports": true
 }
