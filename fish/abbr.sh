@@ -22,7 +22,6 @@ abbr -a gbv 'git branch -vv'
 abbr -a gstall 'git stash --all'
 abbr -a gswm 'git switch (__git.default_branch)'
 
-
 # Terraform
 abbr -a tf 'terraform'
 abbr -a tfi 'terraform init'
@@ -53,13 +52,11 @@ abbr -a ekc 'set -x KUBECONFIG ~/.kube/config.d/local'
 abbr -a kcn 'kubectl config set-context --current --namespace'
 abbr -a kgn 'kubectl get namespace'
 
-
 # Docker
 abbr -a drma 'docker rm -f (docker ps -a -q)'
 abbr -a dcu 'docker compose up'
 abbr -a dcud 'docker compose up --detach'
 abbr -a dcd 'docker compose down'
 
-# Openstack
-abbr -a os 'openstack'
-
+# Custom
+abbr -a todo 'todoer $HOME/.obsidian/ToDo.md && nvim $HOME/.obsidian/ToDo.md'
