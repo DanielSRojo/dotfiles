@@ -15,8 +15,8 @@
     "security.workspace.trust.untrustedFiles": "open",
     "security.workspace.trust.enabled": false,
     "editor.fontVariations": false,
-    "editor.fontFamily": "'Monaspace Argon', monospace",
+    "editor.fontFamily": "FiraCode Nerd Font",
     "editor.fontLigatures": true,
     "go.logging.level": "verbose",
-    "tabnine.experimentalAutoImports": true
+    "editor.fontSize": 16
 }
