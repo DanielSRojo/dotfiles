@@ -1,0 +1,8 @@
+font-family = "FiraCode Nerd Font"
+font-size = "14"
+
+confirm-close-surface = false
+
+mouse-hide-while-typing = true
+
+theme = "ayu"
