@@ -5,4 +5,4 @@ confirm-close-surface = false
 
 mouse-hide-while-typing = true
 
-theme = "ayu"
+theme = Ayu
