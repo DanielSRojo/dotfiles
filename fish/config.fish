@@ -39,15 +39,6 @@ if status is-interactive
     starship init fish | source
     enable_transience
 
-    # Kubectl completion
-    # kubectl completion fish | source
-
-    # Helm completion
-    # helm completion fish | source
-
-    # Openstack completion
-    # openstack complete --shell=fish | source
-
     # Direnv hook
     direnv hook fish | source
 
