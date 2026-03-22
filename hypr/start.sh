@@ -17,5 +17,4 @@ wl-paste --watch cliphist store & # Stores only text data
 
 # Default apps
 brave &
-obsidian &
 hyprctl dispatch exec "[workspace 2 silent] obsidian" &

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-option=$(printf "Suspend\nReboot\nShutdown\nLock\nLogout" | rofi -dmenu -p "Power menu:")
+option=$(printf "Suspend\nReboot\nShutdown\nLock\nLogout" | rofi -dmenu -i -p "Power menu:")
 
 case "$option" in
 Lock)
