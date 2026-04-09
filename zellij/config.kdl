@@ -244,8 +244,9 @@ load_plugins {
 // 
 // theme "dracula"
 // theme "tokyo-night"
-theme "retro-wave"
+// theme "retro-wave"
 // theme "vesper"
+theme "flexoki-light"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -327,8 +328,8 @@ default_mode "locked"
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
-// 
-copy_command "wl-copy"
+
+copy_command "pbcopy"                     // osx
  
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
@@ -352,8 +353,8 @@ copy_command "wl-copy"
 // Consider also setting `attach_to_session true,`
 // otherwise this will error if such a session exists.
 // Default: <RANDOM>
-// 
-// session_name "My singleton session"
+
+session_name "main"
  
 // When `session_name` is provided, attaches to that session
 // if it is already running or creates it otherwise.
