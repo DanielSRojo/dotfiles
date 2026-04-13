@@ -1,0 +1,121 @@
+# Flexoki Light theme for vivid
+# Colors from https://stephango.com/flexoki
+
+colors:
+  paper: "FFFCF0"
+  tx:    "575653"  # primary text on light background
+  black: "100F0F"  # absolute dark anchor
+  gray:  "6F6E69"  # tx-2
+  faint: "B7B5AC"  # ui-3
+  red: "AF3029"
+  orange: "BC5215"
+  yellow: "AD8301"
+  green: "66800B"
+  cyan: "24837B"
+  blue: "205EA6"
+  purple: "5E409D"
+  magenta: "A02F6F"
+
+core:
+  normal_text:
+    foreground: tx
+  regular_file:
+    foreground: tx
+  reset_to_normal: {}
+  directory:
+    foreground: blue
+    font-style: bold
+  symlink:
+    foreground: cyan
+  multi_hard_link:
+    foreground: tx
+  fifo:
+    foreground: orange
+  socket:
+    foreground: magenta
+  door:
+    foreground: magenta
+  block_device:
+    foreground: yellow
+    font-style: bold
+  character_device:
+    foreground: yellow
+  broken_symlink:
+    foreground: paper
+    background: red
+  missing_symlink_target:
+    foreground: paper
+    background: red
+  executable_file:
+    foreground: green
+    font-style: bold
+  setuid:
+    foreground: paper
+    background: red
+  setgid:
+    foreground: paper
+    background: orange
+  file_with_capability:
+    foreground: paper
+    background: red
+  sticky_other_writable:
+    foreground: paper
+    background: cyan
+    font-style: italic
+  other_writable:
+    foreground: green
+    font-style: bold
+  sticky:
+    foreground: paper
+    background: blue
+
+text:
+  foreground: tx
+  special:
+    foreground: yellow
+    font-style: bold
+  todo:
+    foreground: green
+  licenses:
+    foreground: gray
+    font-style: italic
+  configuration:
+    foreground: cyan
+  other:
+    foreground: tx
+
+markup:
+  foreground: yellow
+
+programming:
+  source:
+    foreground: blue
+  tooling:
+    foreground: gray
+    font-style: italic
+    continuous-integration:
+      foreground: cyan
+
+media:
+  foreground: magenta
+  video:
+    foreground: purple
+    font-style: bold
+
+office:
+  foreground: blue
+  font-style: bold
+
+archives:
+  foreground: orange
+  images:
+    foreground: purple
+    font-style: bold
+
+executable:
+  foreground: green
+  font-style: bold
+
+unimportant:
+  foreground: faint
+  font-style: italic
