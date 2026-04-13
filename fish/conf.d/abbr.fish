@@ -2,12 +2,12 @@
 abbr -a l 'eza -l --icons'
 abbr -a ll 'eza -l'
 abbr -a la 'eza -la --icons'
-abbr -a v 'nvim'
+abbr -a v nvim
 abbr -a grn 'grep -rni'
 abbr -a code codium
 abbr -a curlhc 'curl -s -o /dev/null -I -w "%{http_code}"'
-abbr -a clip 'wl-copy'
-abbr -a ls 'eza'
+abbr -a clip wl-copy
+abbr -a ls eza
 abbr -a cat 'bat -p'
 abbr -a cy 'bat --language=yaml'
 abbr -a fvim 'fzf --print0 | xargs -0 -o vim'
@@ -23,7 +23,7 @@ abbr -a gstall 'git stash --all'
 abbr -a gswm 'git switch (__git.default_branch)'
 
 # Terraform
-abbr -a tf 'terraform'
+abbr -a tf terragrunt
 abbr -a tfi 'terraform init'
 abbr -a tfv 'terraform validate'
 abbr -a tfp 'terraform plan'
@@ -32,7 +32,7 @@ abbr -a tfr 'terraform refresh'
 abbr -a tff 'terraform fmt'
 
 # Kubernetes
-abbr -a k 'kubectl'
+abbr -a k kubectl
 abbr -a ka 'kubectl get --all-namespaces'
 abbr -a kg 'kubectl get pods --all-namespaces | grep'
 abbr -a ks 'kubectl --namespace=kube-system'
@@ -57,6 +57,10 @@ abbr -a drma 'docker rm -f (docker ps -a -q)'
 abbr -a dcu 'docker compose up'
 abbr -a dcud 'docker compose up --detach'
 abbr -a dcd 'docker compose down'
+
+# Nix
+abbr -a rebuild 'sudo darwin-rebuild switch --flake ~/code/github.com/danielsrojo/nix#astrokube'
+abbr -a update 'nix run ~/code/github.com/danielsrojo/nix#update'
 
 # Custom
 abbr -a todo 'todoer $HOME/.obsidian/ToDo.md && nvim $HOME/.obsidian/ToDo.md'

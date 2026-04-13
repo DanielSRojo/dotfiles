@@ -13,10 +13,10 @@ if status is-interactive
     # Add custom paths to fish_user_paths
     set -U fish_user_paths /usr/local/go/bin $fish_user_paths
     set -U fish_user_paths $HOME/go/bin $fish_user_paths
-    set -U fish_user_paths $HOME/.appimages $fish_user_paths
     set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
     set -U fish_user_paths $HOME/.local/bin $fish_user_paths
     set -U fish_user_paths $HOME/.krew/bin $fish_user_paths
+    set -U fish_user_paths $HOME/Library/Python/3.9/bin
 
     # Add root directories
     set -U fish_user_paths /usr/sbin $fish_user_paths
@@ -25,13 +25,6 @@ if status is-interactive
     # Add GOPATH
     set -x GOPATH ~/go
 
-    # Import custom aliases
-    source ~/.config/fish/alias.sh
-    source ~/.config/fish/abbr.sh
-
-    # Import custom functions
-    # source ~/.config/fish/functions/practice.fish
-
     # Set up zoxide
     zoxide init fish | source
 
@@ -39,7 +32,14 @@ if status is-interactive
     starship init fish | source
     enable_transience
 
+    # Kubectl completion
+    kubectl completion fish | source
+
+    # Helm completion
+    helm completion fish | source
+
     # Direnv hook
     direnv hook fish | source
 
 end
+export PATH="$HOME/.local/bin:$PATH"
