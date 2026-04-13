@@ -1,8 +1,20 @@
-font-family = "FiraCode Nerd Font"
-font-size = "14"
+font-family = "Monaspace Neon"
+font-size = "16"
+font-feature = calt
+font-feature = liga
+font-feature = ss01
+font-feature = ss02
+font-feature = ss03
+
+auto-update = off
 
 confirm-close-surface = false
 
 mouse-hide-while-typing = true
 
-theme = Ayu
+theme = "Flexoki Light"
+
+window-padding-x = 10
+window-padding-y = 10
+font-thicken = true
+command = /usr/bin/env fish --login --interactive
