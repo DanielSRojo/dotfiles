@@ -1,1 +1,1 @@
-set -gx LS_COLORS (vivid generate flexoki-light)
+set -gx LS_COLORS (vivid generate flexoki-dark)
