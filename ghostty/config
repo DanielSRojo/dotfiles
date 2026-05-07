@@ -12,9 +12,9 @@ confirm-close-surface = false
 
 mouse-hide-while-typing = true
 
-theme = "Flexoki Light"
+theme = "Flexoki Dark"
 
 window-padding-x = 10
 window-padding-y = 10
 font-thicken = true
-command = /usr/bin/env fish --login --interactive
+command = /run/current-system/sw/bin/fish --login --interactive
