@@ -41,5 +41,8 @@ if status is-interactive
     # Direnv hook
     direnv hook fish | source
 
+    atuin init fish | source
+
 end
+
 export PATH="$HOME/.local/bin:$PATH"
