@@ -9,7 +9,7 @@ SETUVAR FZF_TMUX_HEIGHT:40\x25
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fifc_open_keybinding:ctrl\x2do
-SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/sbin\x1e/usr/sbin\x1e/Users/dsrojo/Library/Python/3\x2e9/bin
+SETUVAR fish_user_paths:/sbin\x1e/usr/sbin\x1e/Users/dsrojo/Library/Python/3\x2e9/bin
 SETUVAR sponge_allow_previously_successful:true
 SETUVAR sponge_delay:2
 SETUVAR sponge_filters:sponge_filter_failed\x1esponge_filter_matched
