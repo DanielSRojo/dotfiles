@@ -392,7 +392,7 @@ attach_to_session true
 //   - true
 //   - false (default)
 // 
-// serialize_pane_viewport false
+serialize_pane_viewport true
  
 // Scrollback lines to serialize along with the pane viewport when serializing sessions, 0
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
@@ -520,7 +520,7 @@ show_startup_tips false
 // of this command will be used instead of the discovered RESURRECT_COMMAND
 // can be useful for removing wrappers around commands
 // Note: be sure to escape backslashes and similar characters properly
-// post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
+post_command_discovery_hook "echo $RESURRECT_COMMAND | sed 's|^claude$|claude --resume|'"
 
 // Number of async worker tasks to spawn per active client.
 //
