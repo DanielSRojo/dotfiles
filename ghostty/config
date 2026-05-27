@@ -12,7 +12,7 @@ confirm-close-surface = false
 
 mouse-hide-while-typing = true
 
-theme = "Flexoki Light"
+theme = "Flexoki Dark"
 
 window-padding-x = 10
 window-padding-y = 10

@@ -16,7 +16,8 @@ if status is-interactive
     set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
     set -U fish_user_paths $HOME/.local/bin $fish_user_paths
     set -U fish_user_paths $HOME/.krew/bin $fish_user_paths
-    set -U fish_user_paths $HOME/Library/Python/3.9/bin
+    set -U fish_user_paths $HOME/Library/Python/3.9/bin $fish_user_paths
+    set -U fish_user_paths $HOME/.bun/bin $fish_user_paths
 
     # Add root directories
     set -U fish_user_paths /usr/sbin $fish_user_paths

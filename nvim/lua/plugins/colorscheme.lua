@@ -17,8 +17,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "flexoki-dark",
-      colorscheme = "flexoki-light",
+      colorscheme = "flexoki-dark",
     },
   },
 }
