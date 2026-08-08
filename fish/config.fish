@@ -1,11 +1,14 @@
-# Commands to run in interactive sessions can go here
+source /usr/share/cachyos-fish-config/cachyos-config.fish
+
+# Default editor
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+
+# overwrite greeting, disabling fastfetch
+function fish_greeting
+end
+
 if status is-interactive
-
-    # Remove fish greeting
-    set fish_greeting
-
-    # Set nvim as editor
-    set -x EDITOR nvim
 
     # Enable vi style motion
     fish_vi_key_bindings
@@ -16,7 +19,6 @@ if status is-interactive
     set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
     set -U fish_user_paths $HOME/.local/bin $fish_user_paths
     set -U fish_user_paths $HOME/.krew/bin $fish_user_paths
-    set -U fish_user_paths $HOME/Library/Python/3.9/bin $fish_user_paths
     set -U fish_user_paths $HOME/.bun/bin $fish_user_paths
 
     # Add root directories
@@ -27,22 +29,24 @@ if status is-interactive
     set -x GOPATH ~/go
 
     # Set up zoxide
-    zoxide init fish | source
+    command -q zoxide; and zoxide init fish | source
 
     # Enable starship prompt
-    starship init fish | source
-    enable_transience
+    if command -q starship
+        starship init fish | source
+        enable_transience
+    end
 
     # Kubectl completion
-    kubectl completion fish | source
+    command -q kubectl; and kubectl completion fish | source
 
     # Helm completion
-    helm completion fish | source
+    command -q helm; and helm completion fish | source
 
     # Direnv hook
-    direnv hook fish | source
+    command -q direnv; and direnv hook fish | source
 
-    atuin init fish | source
+    command -q atuin; and atuin init fish | source
 
 end
 
