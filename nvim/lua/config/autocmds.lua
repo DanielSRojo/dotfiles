@@ -7,6 +7,9 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+--- Zellij `edit-scrollback` dumps the pane to $TMPDIR/<uuid>.dump -- highlight those as logs
+vim.filetype.add({ extension = { dump = "log" } })
+
 --- Detect kubectl edit buffers and set filetype to yaml
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   group = vim.api.nvim_create_augroup("KubectlEdit", { clear = true }),
