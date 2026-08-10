@@ -1,4 +1,4 @@
-# System 
+# System
 abbr -a l 'eza -l --icons'
 abbr -a ll 'eza -l'
 abbr -a la 'eza -la --icons'
@@ -17,10 +17,39 @@ abbr -a vim nvim
 abbr -a gr 'go run .'
 
 # Git
-abbr -a gd1 'git diff HEAD~1'
-abbr -a gbv 'git branch -vv'
-abbr -a gstall 'git stash --all'
-abbr -a gswm 'git switch (__git.default_branch)'
+# abbr -a gd1 'git diff head~1'
+# abbr -a gbv 'git branch -vv'
+# abbr -a gstall 'git stash --all'
+# abbr -a gswm 'git switch (__git.default_branch)'
+
+# Jujutsu
+abbr -a js 'jj st'
+abbr -a jl 'jj log'
+abbr -a jll 'jj log -r "all()" --limit 40'
+abbr -a jls 'jj log --stat'
+abbr -a jd 'jj diff'
+abbr -a jds 'jj diff --stat'
+abbr -a jsh 'jj show'
+abbr -a jc 'jj commit'
+abbr -a jcm 'jj commit -m'
+abbr -a jde 'jj describe -m'
+abbr -a jn 'jj new'
+abbr -a je 'jj edit'
+abbr -a jb 'jj bookmark list'
+abbr -a jbm 'jj bookmark move'
+abbr -a jt 'jj tug'
+abbr -a jrb 'jj rebase'
+abbr -a jf 'jj git fetch --all-remotes'
+abbr -a jp 'jj git push'
+abbr -a jsq 'jj squash'
+abbr -a jab 'jj abandon'
+abbr -a ju 'jj undo'
+abbr -a jop 'jj op log'
+abbr -a jd1 'jj diff --from @-'
+abbr -a jdm 'jj diff --from "trunk()" --to @'
+abbr -a jbv 'jj bookmark list --all-remotes'
+abbr -a jswm 'jj new "trunk()"'
+abbr -a jrbm 'jj rebase -b @ -d "trunk()"'
 
 # Terraform
 abbr -a tf terragrunt
