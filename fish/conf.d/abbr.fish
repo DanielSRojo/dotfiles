@@ -53,12 +53,12 @@ abbr -a jrbm 'jj rebase -b @ -d "trunk()"'
 
 # Terraform
 abbr -a tf terragrunt
-abbr -a tfi 'terraform init'
-abbr -a tfv 'terraform validate'
-abbr -a tfp 'terraform plan'
-abbr -a tfa 'terraform apply'
-abbr -a tfr 'terraform refresh'
-abbr -a tff 'terraform fmt'
+abbr -a tfi 'terragrunt init'
+abbr -a tfv 'terragrunt validate'
+abbr -a tfp 'terragrunt plan'
+abbr -a tfa 'terragrunt apply'
+abbr -a tfr 'terragrunt refresh'
+abbr -a tff 'terragrunt fmt'
 
 # Kubernetes
 abbr -a k kubectl
