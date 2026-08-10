@@ -1,23 +1,18 @@
 return {
-  -- add flexoki
   {
-    "kepano/flexoki-neovim",
-    name = "flexoki",
+    "ellisonleao/gruvbox.nvim",
+    name = "gruvbox",
     lazy = false,
     priority = 1000,
     opts = {
-      transparent_background = false,
+      contrast = "hard",
     },
-    config = function(_, opts)
-      require("flexoki").setup(opts)
-    end,
   },
 
-  -- Configure LazyVim to load flexoki
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "flexoki-dark",
+      colorscheme = "gruvbox",
     },
   },
 }

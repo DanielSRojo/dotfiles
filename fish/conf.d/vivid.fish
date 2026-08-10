@@ -1,1 +1,1 @@
-set -gx LS_COLORS (vivid generate flexoki-dark)
+set -gx LS_COLORS (vivid generate gruvbox-dark)
