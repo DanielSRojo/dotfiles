@@ -1,5 +1,6 @@
 .DS_Store
 fish/conf.d/*work*.fish
+jj/conf.d/*work*.toml
 
 # Machine-local state that lives beside tracked config
 atuin/atuin-receipt.json

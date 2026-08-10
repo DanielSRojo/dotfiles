@@ -1,0 +1,58 @@
+# Personal identity is the default. Work identities are layered on top from
+# ~/.config/jj/conf.d/*.work.toml, which is deliberately untracked (see
+# .gitignore) -- same split as fish/conf.d/*work*.fish. A missing work file
+# therefore falls back to the personal address rather than leaking a work one.
+[user]
+name = "Daniel S. Rojo"
+email = "danielsrojo@protonmail.com"
+
+[revset-aliases]
+"immutable_heads()" = "builtin_immutable_heads() | bookmarks(regex:'^(main|master|develop)$') | remote_bookmarks(regex:'^(main|master|develop)$')"
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
+"trunk()" = 'latest(remote_bookmarks(exact:"master", remote=exact:"origin") | remote_bookmarks(exact:"develop", remote=exact:"origin") | remote_bookmarks(exact:"main", remote=exact:"origin") | root())'
+
+[template-aliases]
+# Conventional-commit subject -> bookmark name.
+#   "chore(scope): My commit message!" -> "chore/my-commit-message"
+#   "feat!: Drop v1 API"               -> "feat/drop-v1-api"
+#   "no prefix here"                   -> "no-prefix-here"
+#   1. drop stray path separators  2. "type(scope):" -> "type/"
+#   3. slugify the rest            4. cap the length, trim dashes
+'conventional_bookmark(desc)' = '''
+desc.first_line().lower()
+  .replace(regex:'/+', '-')
+  .replace(regex:'^([a-z]+)(\([^)]*\))?!?:\s*', '${1}/')
+  .replace(regex:'[^a-z0-9/]+', '-')
+  .substr(0, 60)
+  .replace(regex:'^-+|-+$', '')
+'''
+
+[templates]
+# Used by `jj git push --change` (aliased below as `jj push -c`).
+git_push_bookmark = '''
+if(conventional_bookmark(description),
+  conventional_bookmark(description),
+  "push-" ++ change_id.short())
+'''
+
+[git]
+auto-local-bookmark = false
+
+[ui]
+diff-formatter = ":git"
+pager = "delta"
+
+[aliases]
+clone = ["git", "clone"]
+fetch = ["git", "fetch", "--all-remotes"]
+push  = ["git", "push"]
+l  = ["log", "-r", "::@ | @::"]              # my stack + descendants, compact
+ll = ["log", "-r", "all()", "--limit", "40"] # wider view
+
+# Familiar names for jj's rewrite commands
+d     = ["diff"]
+desc  = ["describe"]
+amend = ["squash"]                           # fold @ into its parent (git commit --amend)
+
+# Move the nearest ancestor bookmark up to the commit you just made
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
