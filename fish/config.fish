@@ -1,4 +1,29 @@
-source /usr/share/cachyos-fish-config/cachyos-config.fish
+# Add custom paths. fish_add_path is idempotent and silently skips directories
+# that do not exist, so this is safe to re-run and safe to share across machines.
+# Runs before the CachyOS base config below, which adds ~/.local/bin and
+# ~/.cargo/bin itself; going first keeps this list's ordering authoritative.
+fish_add_path /sbin /usr/sbin \
+    $HOME/.bun/bin \
+    $HOME/.krew/bin \
+    $HOME/.local/bin \
+    $HOME/.cargo/bin \
+    $HOME/go/bin \
+    /usr/local/go/bin \
+    $HOME/Library/Python/3.9/bin
+
+# Add GOPATH
+set -gx GOPATH ~/go
+
+# CachyOS base config (Linux only, absent on macOS)
+if test -r /usr/share/cachyos-fish-config/cachyos-config.fish
+    source /usr/share/cachyos-fish-config/cachyos-config.fish
+
+    # The base config defines its own ls/la/ll aliases, and config.fish is
+    # sourced after conf.d, so re-apply ours to keep them authoritative.
+    if test -r $__fish_config_dir/conf.d/alias.fish
+        source $__fish_config_dir/conf.d/alias.fish
+    end
+end
 
 # Default editor
 set -gx EDITOR nvim
@@ -9,24 +34,6 @@ function fish_greeting
 end
 
 if status is-interactive
-
-    # Enable vi style motion
-    fish_vi_key_bindings
-
-    # Add custom paths to fish_user_paths
-    set -U fish_user_paths /usr/local/go/bin $fish_user_paths
-    set -U fish_user_paths $HOME/go/bin $fish_user_paths
-    set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
-    set -U fish_user_paths $HOME/.local/bin $fish_user_paths
-    set -U fish_user_paths $HOME/.krew/bin $fish_user_paths
-    set -U fish_user_paths $HOME/.bun/bin $fish_user_paths
-
-    # Add root directories
-    set -U fish_user_paths /usr/sbin $fish_user_paths
-    set -U fish_user_paths /sbin $fish_user_paths
-
-    # Add GOPATH
-    set -x GOPATH ~/go
 
     # Set up zoxide
     command -q zoxide; and zoxide init fish | source
@@ -46,8 +53,7 @@ if status is-interactive
     # Direnv hook
     command -q direnv; and direnv hook fish | source
 
+    # Shell history
     command -q atuin; and atuin init fish | source
 
 end
-
-export PATH="$HOME/.local/bin:$PATH"
