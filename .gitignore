@@ -4,3 +4,9 @@ jj/conf.d/*work*.toml
 
 # Machine-local state that lives beside tracked config
 atuin/atuin-receipt.json
+
+# Fish rewrites this on every session and it holds absolute, per-machine paths
+fish/fish_variables
+
+# Per-machine ghostty overrides, included optionally from ghostty/config
+ghostty/config.local

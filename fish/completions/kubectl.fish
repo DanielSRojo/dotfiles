@@ -1,1 +1,0 @@
-/nix/store/8xi92aa3pqi2f3savk6q8skf9jyrk81s-orbstack-2.1.1-20026/Applications/OrbStack.app/Contents/MacOS/../Resources/completions/fish/kubectl.fish
