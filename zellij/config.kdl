@@ -340,7 +340,6 @@ default_mode "locked"
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
 // 
-copy_command "wl-copy"
  
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
@@ -358,7 +357,7 @@ copy_command "wl-copy"
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
-scrollback_editor "/sbin/nvim"
+// scrollback_editor "/usr/bin/vim"
  
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`
