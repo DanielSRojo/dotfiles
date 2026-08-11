@@ -2,16 +2,23 @@
 abbr -a l 'eza -l --icons'
 abbr -a ll 'eza -l'
 abbr -a la 'eza -la --icons'
+abbr -a lt 'eza -aT --icons --group-directories-first'
+abbr -a l. "eza -a | grep -e '^\.'"
 abbr -a v nvim
 abbr -a grn 'grep -rni'
 abbr -a code codium
 abbr -a curlhc 'curl -s -o /dev/null -I -w "%{http_code}"'
-abbr -a clip wl-copy
 abbr -a ls eza
 abbr -a cat 'bat -p'
 abbr -a cy 'bat --language=yaml'
 abbr -a fvim 'fzf --print0 | xargs -0 -o vim'
-abbr -a vim nvim
+
+abbr -a grep 'grep --color=auto'
+abbr -a fgrep 'fgrep --color=auto'
+abbr -a egrep 'egrep --color=auto'
+abbr -a untar 'tar -zxvf'
+abbr -a wget 'wget -c'
+abbr -a .. 'cd ..'
 
 # Go
 abbr -a gr 'go run .'
@@ -80,16 +87,3 @@ abbr -a kdep 'kubectl delete pod --all-namespaces --field-selector=status.phase=
 abbr -a ekc 'set -x KUBECONFIG ~/.kube/config.d/local'
 abbr -a kcn 'kubectl config set-context --current --namespace'
 abbr -a kgn 'kubectl get namespace'
-
-# Docker
-abbr -a drma 'docker rm -f (docker ps -a -q)'
-abbr -a dcu 'docker compose up'
-abbr -a dcud 'docker compose up --detach'
-abbr -a dcd 'docker compose down'
-
-# Nix
-abbr -a rebuild 'sudo darwin-rebuild switch --flake ~/code/github.com/danielsrojo/nix#astrokube'
-abbr -a update 'nix run ~/code/github.com/danielsrojo/nix#update'
-
-# Custom
-abbr -a todo 'todoer $HOME/.obsidian/ToDo.md && nvim $HOME/.obsidian/ToDo.md'

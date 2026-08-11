@@ -1,4 +1,4 @@
-font-family = "FiraCode Nerd Font"
+font-family = "Monaspace Neon"
 font-size = "14"
 font-feature = calt
 font-feature = liga
@@ -14,6 +14,9 @@ initial-command = zellij attach --create main
 
 mouse-hide-while-typing = true
 
+# macOS-only renderer option (does not affect Linux)
+font-thicken = true
+
 theme = Ayu
 
 window-decoration = none
@@ -25,9 +28,3 @@ window-padding-y = 6
 keybind = global:f12=toggle_quick_terminal
 quick-terminal-position = center
 quick-terminal-autohide = true
-
-# Per-machine overrides. Resolved relative to this file's directory once stowed,
-# i.e. ~/.config/ghostty/config.local. Kept untracked (see .gitignore) so each
-# machine can differ; the leading ? makes it optional, so machines without one
-# load fine. See config.local.example for the macOS settings.
-config-file = ?config.local
