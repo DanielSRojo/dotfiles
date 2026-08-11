@@ -1,18 +1,21 @@
 return {
   {
-    "ellisonleao/gruvbox.nvim",
-    name = "gruvbox",
+    "Shatur/neovim-ayu",
+    name = "ayu",
+    main = "ayu",
     lazy = false,
     priority = 1000,
     opts = {
-      contrast = "hard",
+      mirage = false,
+      -- ghostty owns the ANSI palette; let :terminal buffers inherit it
+      terminal = false,
     },
   },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "ayu-dark",
     },
   },
 }

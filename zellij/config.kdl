@@ -256,8 +256,9 @@ web_client {
  
 // Choose the theme that is specified in the themes section.
 // Default: default
-// 
-// theme "dracula"
+//
+// Defined in themes/ayu.kdl, matching ghostty's bundled Ayu palette.
+theme "ayu"
  
 // Choose the base input mode of zellij.
 // Default: normal

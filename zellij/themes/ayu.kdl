@@ -1,0 +1,18 @@
+// Ayu Dark for zellij
+// Palette lifted from ghostty's bundled Ayu theme so the two agree exactly.
+// Simple 16-colour form: zellij derives the UI component colours from these.
+themes {
+    ayu {
+        fg "#BFBDB6"
+        bg "#0B0E14"
+        black "#11151C"
+        red "#EA6C73"
+        green "#7FD962"
+        yellow "#F9AF4F"
+        blue "#53BDFA"
+        magenta "#CDA1FA"
+        cyan "#90E1C6"
+        white "#C7C7C7"
+        orange "#FFB454"
+    }
+}
