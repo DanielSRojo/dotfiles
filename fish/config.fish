@@ -1,7 +1,7 @@
 # --- Environment -------------------------------------------------------------
 
-# Homebrew on macOS: sets PATH, MANPATH, INFOPATH and HOMEBREW_* vars. Probed
-# for Apple Silicon; on Linux neither exists and this is a no-op.
+# Homebrew on macOS: sets PATH, MANPATH, INFOPATH and HOMEBREW_* vars.
+# On Linux neither exists and this is a no-op.
 # Runs before fish_add_path below so that list stays authoritative for ordering.
 for brew_prefix in /opt/homebrew /usr/local
     if test -x $brew_prefix/bin/brew
@@ -17,9 +17,7 @@ if test -r $HOME/.atuin/bin/env.fish
     source $HOME/.atuin/bin/env.fish
 end
 
-# Add custom paths. fish_add_path is idempotent and silently skips directories
-# that do not exist, so this is safe to re-run and safe to share across machines.
-fish_add_path /sbin /usr/sbin \
+fish_add_path -g /sbin /usr/sbin \
     $HOME/.bun/bin \
     $HOME/.krew/bin \
     $HOME/.local/bin \
@@ -32,7 +30,7 @@ set -gx EDITOR nvim
 set -gx VISUAL nvim
 
 # Render man pages through bat. MANROFFOPT=-c works around groff's overstrike
-# output, which col strips. Absorbed from the CachyOS base config.
+# output, which col strips.
 if command -q bat
     set -gx MANROFFOPT -c
     set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
@@ -42,6 +40,7 @@ end
 
 set -g fish_key_bindings fish_vi_key_bindings
 
+# Suppress the default "Welcome to fish" banner
 function fish_greeting
 end
 

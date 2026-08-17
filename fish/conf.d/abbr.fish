@@ -6,7 +6,6 @@ abbr -a lt 'eza -aT --icons --group-directories-first'
 abbr -a l. "eza -a | grep -e '^\.'"
 abbr -a v nvim
 abbr -a grn 'grep -rni'
-abbr -a code codium
 abbr -a curlhc 'curl -s -o /dev/null -I -w "%{http_code}"'
 abbr -a ls eza
 abbr -a cat 'bat -p'
@@ -22,12 +21,6 @@ abbr -a .. 'cd ..'
 
 # Go
 abbr -a gr 'go run .'
-
-# Git
-# abbr -a gd1 'git diff head~1'
-# abbr -a gbv 'git branch -vv'
-# abbr -a gstall 'git stash --all'
-# abbr -a gswm 'git switch (__git.default_branch)'
 
 # Jujutsu
 abbr -a js 'jj st'
