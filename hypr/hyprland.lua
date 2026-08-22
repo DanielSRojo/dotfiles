@@ -35,3 +35,13 @@ require("default.hypr.toggles")
 -- Anchored to ^steam$ so Proton game windows (steam_app_*) are untouched, and
 -- notification toasts are excluded so they stay in their corner.
 o.window({ class = "^steam$", title = "negative:^notificationtoasts" }, { center = true })
+
+-- Always open Steam's own windows on workspace 3.
+-- Same match as the centering rule above: ^steam$ keeps Proton game windows
+-- (steam_app_*) on whatever workspace you launch them from, and toasts are
+-- excluded so notifications aren't yanked to workspace 3.
+o.window({ class = "^steam$", title = "negative:^notificationtoasts" }, { workspace = "3 silent" })
+
+-- Always open Steam games on workspace 4.
+-- Proton/native game windows carry class steam_app_<appid>.
+o.window({ class = "^steam_app_" }, { workspace = "4" })
