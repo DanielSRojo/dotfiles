@@ -17,7 +17,7 @@ confirm-close-surface = false
 initial-command = zellij attach --create main
 
 mouse-hide-while-typing = true
-mouse-scroll-multiplier = 0.95
+mouse-scroll-multiplier = 2
 
 theme = Ayu
 
