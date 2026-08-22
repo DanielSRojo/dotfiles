@@ -127,3 +127,9 @@ for workspace = 1, 10 do
   o.bind("SUPER + ALT + " .. key, "Move window to workspace " .. workspace,
     hl.dsp.window.move({ workspace = tostring(workspace) }))
 end
+
+-- Cycle keyboard layout (us,es -- set in hypr/input.lua). This keyboard has no
+-- right Alt, so Omarchy's grp:alts_toggle is unreachable; a keybinding is used
+-- instead of a bare xkb chord because every bare Alt+Shift variant also fires
+-- on the 35 Omarchy bindings that hold Alt and Shift together.
+o.bind("ALT + SHIFT + SPACE", "Cycle keyboard layout", "hyprctl switchxkblayout all next")

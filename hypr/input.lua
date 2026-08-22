@@ -1,17 +1,25 @@
 -- Keep only your personal input overrides here. Uncommented settings below
 -- replace Omarchy's defaults.
 
--- US + Spanish layouts, cycled with Left Alt + Right Alt.
+-- US + Spanish layouts, cycled with ALT + SHIFT + SPACE (see hypr/bindings.lua).
 -- kb_options replaces Omarchy's default wholesale, so its two entries are
 -- repeated here: compose:caps (Caps Lock = compose) and
 -- shift:both_capslock_cancel (both Shifts = Caps Lock, self-clearing).
+--
+-- No grp: option here on purpose. This keyboard has no right Alt, so
+-- grp:alts_toggle is unreachable, and the bare-chord alternatives all misfire:
+-- grp:lalt_lshift_toggle puts ISO_Next_Group on Left Shift at PC_ALT_LEVEL2, so
+-- it flips the layout the instant Alt and Shift are both down -- which is 35 of
+-- Omarchy's bindings, SHIFT + ALT + TAB among them. A normal keybinding needs a
+-- third key and cannot misfire.
+--
 -- The omarchy.keyboard-layout bar widget shows the active layout; clicking it
 -- cycles too.
 hl.config({
   input = {
     kb_layout = "us,es",
     kb_variant = ",",
-    kb_options = "compose:caps,shift:both_capslock_cancel,grp:alts_toggle",
+    kb_options = "compose:caps,shift:both_capslock_cancel",
   },
 })
 
