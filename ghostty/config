@@ -1,10 +1,14 @@
-font-family = "Monaspace Neon"
+font-family = "JetBrainsMono Nerd Font"
+font-style = Regular
 font-size = "14"
 font-feature = calt
 font-feature = liga
 font-feature = ss01
 font-feature = ss02
 font-feature = ss03
+
+# macOS-only renderer option (does not affect Linux)
+font-thicken = true
 
 auto-update = off
 
@@ -13,18 +17,44 @@ confirm-close-surface = false
 initial-command = zellij attach --create main
 
 mouse-hide-while-typing = true
-
-# macOS-only renderer option (does not affect Linux)
-font-thicken = true
+mouse-scroll-multiplier = 0.95
 
 theme = Ayu
 
+window-theme = ghostty
 window-decoration = none
 window-width = 165
 window-height = 46
 window-padding-x = 8
 window-padding-y = 6
+resize-overlay = never
+gtk-toolbar-style = flat
+
+cursor-style = "block"
+cursor-style-blink = false
+
+# Cursor styling + SSH session terminfo
+# (all shell integration options must be passed together)
+shell-integration-features = no-cursor,ssh-env
 
 keybind = global:f12=toggle_quick_terminal
 quick-terminal-position = center
 quick-terminal-autohide = true
+
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+# Send Shift+Enter as CSI-u so TUIs can distinguish it from Enter.
+keybind = shift+enter=csi:13;2u
+# Legacy encoding sends Alt+Shift+Enter the same as Alt+Enter; send CSI-u so tmux can match M-S-Enter.
+keybind = alt+shift+enter=csi:13;4u
+keybind = super+control+shift+alt+arrow_down=resize_split:down,100
+keybind = super+control+shift+alt+arrow_up=resize_split:up,100
+keybind = super+control+shift+alt+arrow_left=resize_split:left,100
+keybind = super+control+shift+alt+arrow_right=resize_split:right,100
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll
+
+# Omarchy's live theme. Optional (`?`) so macOS, where this path does not exist,
+# still parses. Loaded last, so `omarchy theme set` overrides `theme = Ayu` above.
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"

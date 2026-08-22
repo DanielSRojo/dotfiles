@@ -257,8 +257,10 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// Defined in themes/ayu.kdl, matching ghostty's bundled Ayu palette.
-theme "ayu"
+// Defined in themes/omarchy.kdl. On the Omarchy box a theme-set hook keeps a
+// machine-local copy of that file in sync with `omarchy theme set`; elsewhere
+// the tracked copy supplies a static Ayu palette matching ghostty.
+theme "omarchy"
  
 // Choose the base input mode of zellij.
 // Default: normal
