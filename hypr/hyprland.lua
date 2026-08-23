@@ -40,7 +40,12 @@ o.window({ class = "^steam$", title = "negative:^notificationtoasts" }, { center
 -- Same match as the centering rule above: ^steam$ keeps Proton game windows
 -- (steam_app_*) on whatever workspace you launch them from, and toasts are
 -- excluded so notifications aren't yanked to workspace 3.
-o.window({ class = "^steam$", title = "negative:^notificationtoasts" }, { workspace = "3 silent" })
+-- focus_on_activate is on system-wide (omarchy default), and Steam sends an
+-- xdg-activation request when its main window maps, which overrides "silent".
+-- suppressevent activatefocus drops the focus half of that request.
+-- "maximize" is re-stated because omarchy sets it globally for all windows.
+o.window({ class = "^steam$", title = "negative:^notificationtoasts" },
+  { workspace = "3 silent", suppress_event = "activatefocus maximize" })
 
 -- Always open Steam games on workspace 4.
 -- Proton/native game windows carry class steam_app_<appid>.
