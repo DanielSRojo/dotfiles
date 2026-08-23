@@ -133,3 +133,7 @@ end
 -- instead of a bare xkb chord because every bare Alt+Shift variant also fires
 -- on the 35 Omarchy bindings that hold Alt and Shift together.
 o.bind("ALT + SHIFT + SPACE", "Cycle keyboard layout", "hyprctl switchxkblayout all next")
+
+-- Close window moves to SUPER + Q
+hl.unbind("SUPER + W") -- was: Close window
+o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
