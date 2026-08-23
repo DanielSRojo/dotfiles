@@ -64,3 +64,16 @@ o.window({ class = "^steam$", title = "^Steam$" }, {
   size = { MON.w - 2 * RING, MON.h - BAR - 2 * RING },
   move = { RING, BAR + RING },
 })
+
+-- Browsers open on workspace 1.
+-- Classes verified on this machine: zen, chromium, brave-origin-nightly (the
+-- nightly reports its own class, not brave-browser, so omarchy's browser tags
+-- in default/hypr/apps/browser.lua miss it too). The rest are listed for
+-- browsers not installed yet, and the capital variants for XWayland fallback.
+-- Anchored on purpose: omarchy web apps carry classes like
+-- chrome-<host>-Default, and those are separate apps that should keep opening
+-- wherever they are launched from.
+o.window(
+  { class = "^([cC]hromium|[bB]rave-origin-nightly|[bB]rave-browser|zen|[fF]irefox|librewolf|(google-)?[cC]hrome|[vV]ivaldi-stable|[mM]icrosoft-edge)$" },
+  { workspace = "1" }
+)
