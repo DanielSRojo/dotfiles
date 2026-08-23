@@ -77,3 +77,10 @@ o.window(
   { class = "^([cC]hromium|[bB]rave-origin-nightly|[bB]rave-browser|zen|[fF]irefox|librewolf|(google-)?[cC]hrome|[vV]ivaldi-stable|[mM]icrosoft-edge)$" },
   { workspace = "1" }
 )
+
+-- Tag the Brave nightly as a chromium-based browser. Omarchy's tagging in
+-- default/hypr/apps/browser.lua matches [bB]rave-browser, which this build's
+-- class is not, so it never picked up the tile and opacity rules that tag
+-- carries. Tagging late still works: Hyprland re-runs the tag-matching rules,
+-- so omarchy's earlier consumers see this tag.
+o.window({ class = "^[bB]rave-origin-nightly$" }, { tag = "+chromium-based-browser" })
