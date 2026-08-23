@@ -50,3 +50,17 @@ o.window({ class = "^steam$", title = "negative:^notificationtoasts" },
 -- Always open Steam games on workspace 4.
 -- Proton/native game windows carry class steam_app_<appid>.
 o.window({ class = "^steam_app_" }, { workspace = "4" })
+
+-- Open Steam's main window at the geometry a lone tiled window gets on this
+-- monitor: floating, but filling the workspace inside the usual gap ring.
+-- Hyprland has no gap-aware "maximize" rule (its `maximize` goes edge to edge,
+-- ignoring gaps_out), and the Lua rule spec takes pixels, not percentages, so
+-- the box is derived from the pieces below. Only the main window is matched --
+-- ^Steam$ leaves the friends list and dialogs at their own sizes.
+local BAR = 26 -- top edge reserved by the omarchy bar
+local RING = 12 -- gaps_out (10) + border_size (2)
+local MON = { w = 2560, h = 1440 } -- DP-1, see hypr/monitors.lua
+o.window({ class = "^steam$", title = "^Steam$" }, {
+  size = { MON.w - 2 * RING, MON.h - BAR - 2 * RING },
+  move = { RING, BAR + RING },
+})
