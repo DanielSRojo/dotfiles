@@ -24,3 +24,9 @@ fish/conf.d/*
 
 # Per-machine ghostty overrides (see the config-file include at the end of ghostty/config).
 ghostty/config.local
+
+# Omarchy writes <file>.bak.<epoch> next to a config each time it rewrites one
+# (`omarchy refresh`, the edit-and-reload loop). ~/.config/hypr is stowed as
+# per-file symlinks, so today they land there and never in this tree -- this
+# guards the case where a directory gets folded and they do.
+*.bak.*
