@@ -24,7 +24,7 @@
       ],
       "left": [
         {
-          "id": "omarchy.menu"
+          "id": "dsrojo.menu"
         },
         {
           "id": "omarchy.workspaces"
@@ -61,6 +61,18 @@
     "lock": 86400,
     "screensaver": 150
   },
-  "plugins": [],
-  "version": 1
+  "plugins": [
+    {
+      "id": "dsrojo.clipboard"
+    }
+  ],
+  "version": 1,
+  "disabledPlugins": [
+    "omarchy.menu",
+    "omarchy.clipboard"
+  ],
+  "cloneSourceRestores": [
+    "dsrojo.menu",
+    "dsrojo.clipboard"
+  ]
 }
