@@ -59,20 +59,25 @@
   },
   "idle": {
     "lock": 86400,
-    "screensaver": 150
+    "screensaver": 900
   },
   "plugins": [
     {
       "id": "dsrojo.clipboard"
+    },
+    {
+      "id": "dsrojo.idle"
     }
   ],
   "version": 1,
   "disabledPlugins": [
     "omarchy.menu",
-    "omarchy.clipboard"
+    "omarchy.clipboard",
+    "omarchy.idle"
   ],
   "cloneSourceRestores": [
     "dsrojo.menu",
-    "dsrojo.clipboard"
+    "dsrojo.clipboard",
+    "dsrojo.idle"
   ]
 }

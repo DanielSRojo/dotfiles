@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Re-apply Ctrl+N/J + Ctrl+P/K navigation to the omarchy-shell plugins that
-# need a clone to carry it (see omarchy/bin/vim-nav-clones.py).
+# Re-apply the local patches that omarchy-shell plugin clones carry
+# (see omarchy/bin/shell-clone-patches.py).
 #
 # Runs after `omarchy update`: each clone is recreated from the freshly updated
 # package and re-patched, so a clone never lags upstream by more than one
@@ -10,4 +10,4 @@
 
 set -e
 
-exec python3 "$HOME/.config/omarchy/bin/vim-nav-clones.py"
+exec python3 "$HOME/.config/omarchy/bin/shell-clone-patches.py"
