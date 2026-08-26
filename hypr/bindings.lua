@@ -231,3 +231,8 @@ o.bind("ALT + SHIFT + SPACE", "Cycle keyboard layout", "hyprctl switchxkblayout 
 -- Close window moves to SUPER + Q
 hl.unbind("SUPER + W") -- was: Close window
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
+
+-- Clipboard manager off CTRL, which SUPER + CTRL + hjkl and the cheatsheets
+-- already crowd, and onto the ALT column.
+hl.unbind("SUPER + CTRL + V") -- was: Clipboard manager
+o.bind("SUPER + ALT + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")
