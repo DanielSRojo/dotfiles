@@ -1,0 +1,43 @@
+# Ayu Dark, taken from zellij's builtin `ayu-dark` (zellij 0.45.0) rather than
+# from ghostty's own bundled Ayu, which is a different, older cut of the palette.
+# The builtin is the source of truth: every value here that it pins is copied
+# verbatim, and zellij/themes/omarchy.kdl (the Mac's no-Omarchy fallback) is the
+# same builtin renamed. Without this, zellij paints its status bar and pane
+# frames on #131721 while ghostty paints the window #0b0e14, and the seam shows.
+#
+# This is only the base. On the Omarchy box the include at the end of ../config
+# loads the live theme last and overrides everything here, which is the point:
+# `omarchy theme set` restyles ghostty and zellij together.
+#
+# Surfaces zellij paints, taken from the builtin's component colours:
+# background/foreground are text_unselected.background/.base, the selection is
+# text_selected.background, and cursor-text follows the background.
+# (Ghostty has no trailing comments, hence the block above rather than per-line.)
+background = #131721
+foreground = #cccac2
+selection-background = #475266
+selection-foreground = #cccac2
+cursor-text = #131721
+
+# The ANSI 16 and the cursor stay ghostty's bundled Ayu: zellij's builtin
+# defines no ANSI palette (a pane's contents are ghostty's colours), and the
+# bright row is already the upstream Ayu accents zellij uses — 9 red #f07178,
+# 10 green #aad94c, 12 blue #59c2ff, 13 magenta #d2a6ff. The cursor's #e6b450
+# is likewise one of the builtin's colours.
+palette = 0=#11151c
+palette = 1=#ea6c73
+palette = 2=#7fd962
+palette = 3=#f9af4f
+palette = 4=#53bdfa
+palette = 5=#cda1fa
+palette = 6=#90e1c6
+palette = 7=#c7c7c7
+palette = 8=#686868
+palette = 9=#f07178
+palette = 10=#aad94c
+palette = 11=#ffb454
+palette = 12=#59c2ff
+palette = 13=#d2a6ff
+palette = 14=#95e6cb
+palette = 15=#ffffff
+cursor-color = #e6b450

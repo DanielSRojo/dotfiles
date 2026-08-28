@@ -39,7 +39,11 @@ initial-command = zellij attach --create main
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
 
-theme = Ayu
+# themes/ayu-dark in this directory, not ghostty's bundled Ayu: the palette is
+# taken from zellij's builtin ayu-dark, the newer cut, so the window and zellij's
+# chrome share a background instead of showing a seam. Only the base — the
+# Omarchy include at the end of this file overrides it where Omarchy exists.
+theme = ayu-dark
 
 window-theme = ghostty
 window-decoration = none
@@ -76,7 +80,8 @@ keybind = super+control+shift+alt+arrow_right=resize_split:right,100
 async-backend = epoll
 
 # Omarchy's live theme. Optional (`?`) so macOS, where this path does not exist,
-# still parses. Loaded last, so `omarchy theme set` overrides `theme = Ayu` above.
+# still parses. Loaded last, so `omarchy theme set` overrides `theme = ayu-dark`
+# above, in step with the zellij theme the same hook rewrites.
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 
 # Per-machine overrides. Optional (`?`) and relative to this file, so it is a

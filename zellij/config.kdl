@@ -258,11 +258,14 @@ web_client {
 // Default: default
 //
 // Defined in themes/omarchy.kdl, which is deliberately untracked (see
-// .gitignore): a theme-set hook rewrites it on every `omarchy theme set`, and
-// following the live theme is worth more here than a palette shared with the
-// Mac. On a machine without that hook the file is simply absent and zellij
-// falls back to its default theme; themes/ayu.kdl stays tracked if a static
-// palette matching ghostty is ever wanted again.
+// .gitignore): a theme-set hook rewrites it on every `omarchy theme set`, so
+// zellij follows the live theme along with everything else Omarchy restyles.
+//
+// On a machine without that hook the file would simply be absent and zellij
+// would fall back to its plain default. Rather than accept that, this Mac keeps
+// a hand-written omarchy.kdl holding zellij's builtin `ayu-dark` verbatim, and
+// ghostty/themes/ayu-dark is derived from the same builtin — so the fallback is
+// ayu-dark in both, and Omarchy still owns the theme where Omarchy exists.
 theme "omarchy"
  
 // Choose the base input mode of zellij.
