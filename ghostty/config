@@ -1,14 +1,34 @@
-font-family = "JetBrainsMono Nerd Font"
+font-family = "MonaspiceAr Nerd Font"
+# Monaspace faces are metric-compatible: Radon (handwriting) for italics makes
+# comments recede in nvim. Applies to all italic text, not just comments.
+font-family-italic = "MonaspiceRn Nerd Font"
 font-style = Regular
-font-size = "14"
+font-size = "16"
+# Monaspace gates its ligatures behind stylistic sets; `liga` alone does nothing
+# here. `calt` is on by default, but it is listed because it also drives texture
+# healing (the contextual widening of i/l and narrowing of m/w) — `-calt` would
+# silently turn that off too.
 font-feature = calt
-font-feature = liga
+# ss01 Equal Symbols:  != !== == #= /= -~ !~
 font-feature = ss01
+# ss02 Comparisons:    >= <=
 font-feature = ss02
+# ss03 Arrows:         -> --> <- <-- <-> <--> <!-- <~
 font-feature = ss03
+# ss09 Double Arrows:  => ==> >> >>= <== <==> =<<
+font-feature = ss09
 
-# macOS-only renderer option (does not affect Linux)
+# Both machines drive the same 27" 1440p panel (~109 PPI, non-retina), so the
+# sizing below is shared rather than per-machine. Extra leading keeps long log
+# output legible when glyphs get few pixels.
+adjust-cell-height = 8%
+
+# macOS-only renderer options (no-ops on Linux, where freetype-load-flags rules).
+# macOS dropped subpixel AA in Mojave, so text renders thin on a non-retina
+# panel; thicken compensates. Strength defaults to 255 (max), which is too heavy
+# for Argon's already-round stems.
 font-thicken = true
+font-thicken-strength = 200
 
 auto-update = off
 
@@ -58,3 +78,7 @@ async-backend = epoll
 # Omarchy's live theme. Optional (`?`) so macOS, where this path does not exist,
 # still parses. Loaded last, so `omarchy theme set` overrides `theme = Ayu` above.
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+
+# Per-machine overrides. Optional (`?`) and relative to this file, so it is a
+# no-op wherever it does not exist. Loaded last, so it wins over everything above.
+config-file = ?"config.local"
