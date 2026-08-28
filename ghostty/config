@@ -3,7 +3,7 @@ font-family = "MonaspiceAr Nerd Font"
 # comments recede in nvim. Applies to all italic text, not just comments.
 font-family-italic = "MonaspiceRn Nerd Font"
 font-style = Regular
-font-size = "16"
+font-size = "13"
 # Monaspace gates its ligatures behind stylistic sets; `liga` alone does nothing
 # here. `calt` is on by default, but it is listed because it also drives texture
 # healing (the contextual widening of i/l and narrowing of m/w) — `-calt` would
