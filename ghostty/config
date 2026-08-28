@@ -9,13 +9,21 @@ font-size = "16"
 # healing (the contextual widening of i/l and narrowing of m/w) — `-calt` would
 # silently turn that off too.
 font-feature = calt
-# ss01 Equal Symbols:  != !== == #= /= -~ !~
+# ss01 Equal Symbols:     != !== == #= /= -~ !~
 font-feature = ss01
-# ss02 Comparisons:    >= <=
+# ss02 Comparisons:       >= <=
 font-feature = ss02
-# ss03 Arrows:         -> --> <- <-- <-> <--> <!-- <~
+# ss03 Arrows:            -> --> <- <-- <-> <--> <!-- <~
 font-feature = ss03
-# ss09 Double Arrows:  => ==> >> >>= <== <==> =<<
+# ss04 HTML Tags:         the < and / tag forms
+font-feature = ss04
+# ss06 Markdown Strings:  ## ### === ___ +++ &&
+font-feature = ss06
+# ss07 Centered Colon:    :: ::: := =:
+font-feature = ss07
+# ss08 Centered Period:   . on the operator axis
+font-feature = ss08
+# ss09 Double Arrows:     => ==> >> >>= <== <==> =<<
 font-feature = ss09
 
 # Both machines drive the same 27" 1440p panel (~109 PPI, non-retina), so the
