@@ -229,8 +229,9 @@ deleted    = ""
 # detect_folders, which only checks the cwd and so missed subdirectories);
 # outside a jj repo starship-jj emits a lone symbol, which the guard suppresses.
 # --ignore-working-copy stops starship from snapshotting the working copy every
-# render. Formatting/symbols now live in ~/.config/starship-jj/starship-jj.toml
-# (run `starship-jj starship config default` for the annotated template).
+# render. Formatting/symbols live in starship-jj/starship-jj.toml here, stowed to
+# ~/.config/starship-jj/starship-jj.toml (regenerate the stock one with
+# `starship-jj starship config default`).
 [custom.jj]
 description = "current jj change (via starship-jj)"
 when = "jj --ignore-working-copy root"
