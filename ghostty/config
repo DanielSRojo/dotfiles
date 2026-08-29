@@ -42,7 +42,14 @@ auto-update = off
 
 confirm-close-surface = false
 
-initial-command = zellij attach --create main
+# zellij can serialize a resurrection layout that has lost every terminal pane
+# (seen 2026-08-29: both tabs held only the tab-bar and status-bar plugins).
+# Resurrecting that has nothing to run, so zellij prints "Bye from Zellij!" and
+# exits *with status 0* — `||` never fires — the pty closes and the window
+# vanishes at launch. Guard on elapsed time instead: a session that dies within
+# 3s drops to a shell that says why, so the window stays up and the state is
+# repairable from inside it. A real quit takes longer and still closes.
+initial-command = t=$(date +%s); zellij attach --create main; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij exited immediately (status $s); dropping to a shell"; exec fish; }
 
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
