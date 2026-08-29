@@ -33,6 +33,10 @@ hl.config({
 --   },
 -- })
 
+-- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+-- Slide between workspaces (Omarchy disables this animation by default).
+hl.animation({ leaf = "workspaces", enabled = true, speed = 4, bezier = "easeOutQuint", style = "slide" })
+
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#layout
 -- hl.config({
 --   layout = {
