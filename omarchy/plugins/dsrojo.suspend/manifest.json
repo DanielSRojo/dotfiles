@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "dsrojo.suspend",
+  "name": "Suspend on Idle",
+  "version": "1.0.0",
+  "author": "dsrojo",
+  "description": "Suspends the machine after idle.suspend seconds idle, honouring stay-awake and idle inhibitors.",
+  "kinds": [
+    "service"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml"
+  }
+}
