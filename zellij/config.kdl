@@ -275,8 +275,13 @@ default_mode "locked"
  
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
-// 
-// default_shell "fish"
+//
+// Set explicitly rather than left to $SHELL. The server is detached (reparented
+// to systemd --user) and outlives every ghostty window, so it keeps whatever
+// $SHELL the client that first created the session happened to carry — bash, if
+// that client came up before the login shell was in effect. Naming fish here
+// makes new panes independent of that inherited env.
+default_shell "fish"
  
 // Choose the path to override cwd that zellij will use for opening new panes
 // 
