@@ -58,3 +58,40 @@ hot-reload. Run `omarchy restart shell` after changing `Service.qml`.
 
 Check what it is doing with `omarchy-shell suspendOnIdle status`; it logs to the
 journal (`journalctl --user -b | grep suspend-on-idle`).
+
+# omarchy/plugins/dsrojo.bar-icons
+
+Scales the bar's icon glyphs on their own, driven by `bar.iconScale` in
+`shell.json` (another key Omarchy does not define, kept by the shell for the
+same reason `idle.suspend` is).
+
+Omarchy exposes exactly one sizing knob for the shell, `[font] base-size` in
+`~/.config/omarchy/shell.toml`, and it is the rem root for everything: raising
+it until the bar icons read well also grows the clock, the panels, the menu and
+the notifications, and it only moves the icons by its own ratio anyway — 12 to
+14 takes them from 13px to 15px, which is not enough to notice.
+
+`Style.bar` does have the right tokens — `icon-font`, `icon-canvas`,
+`icon-slot` — but they cannot be set. `Style.applyShellValues` only reads
+`size-horizontal`, `size-vertical` and `scale-with-font` out of a theme's
+`[bar]` section and drops every other key, so writing `icon-font` into
+`shell.toml` parses fine and changes nothing. `Style.barOverrides` is a plain
+writable property though, and `barToken()` reads it on each access, so the
+service writes the three tokens straight in and re-applies them whenever
+`applyShellValues` rebuilds the map from scratch — which it does on every theme
+switch and every `shell.toml` change.
+
+The values stay in stock 12px-base units, exactly like the defaults, so
+`barToken()` still multiplies them by `fontScale` and the two knobs compose:
+`base-size` sets the overall shell scale, `iconScale` sets how much bigger than
+that the icons sit. `icon-slot` grows by the canvas's absolute gain rather than
+by the ratio, so the padding around each glyph stays as it was instead of the
+bar spreading sideways.
+
+An absent, unparseable or non-positive `iconScale`, or exactly `1`, hands the
+tokens back rather than pinning them to today's defaults.
+
+Same stow caveat as `dsrojo.suspend`: the plugin directory is a symlink and the
+shell's watcher does not follow it, so run `omarchy-shell shell rescanPlugins`
+(or `omarchy restart shell`) after editing `Service.qml`. Changes to
+`bar.iconScale` in `shell.json` do hot-reload.

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "dsrojo.bar-icons",
+  "name": "Bar icon size",
+  "version": "1.0.0",
+  "author": "dsrojo",
+  "description": "Scales the bar's icon glyphs by bar.iconScale, independently of the shell font base-size.",
+  "kinds": [
+    "service"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml"
+  }
+}
