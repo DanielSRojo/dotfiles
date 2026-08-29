@@ -58,7 +58,7 @@ o.window({ class = "^steam_app_" }, { workspace = "4" })
 -- the box is derived from the pieces below. Only the main window is matched --
 -- ^Steam$ leaves the friends list and dialogs at their own sizes.
 local BAR = 26 -- top edge reserved by the omarchy bar
-local RING = 12 -- gaps_out (10) + border_size (2)
+local RING = 5 -- gaps_out (3) + border_size (2)
 local MON = { w = 2560, h = 1440 } -- DP-1, see hypr/monitors.lua
 o.window({ class = "^steam$", title = "^Steam$" }, {
   size = { MON.w - 2 * RING, MON.h - BAR - 2 * RING },
@@ -84,3 +84,17 @@ o.window(
 -- carries. Tagging late still works: Hyprland re-runs the tag-matching rules,
 -- so omarchy's earlier consumers see this tag.
 o.window({ class = "^[bB]rave-origin-nightly$" }, { tag = "+chromium-based-browser" })
+
+-- Trastea (my iced app): always float, centered, at 1920x1080 on this 2560x1440
+-- monitor. Matched by title, not class: iced 0.14 never populates
+-- window::settings::PlatformSpecific.application_id (nothing in the crate maps
+-- Settings::id onto it), so winit calls xdg_toplevel.set_app_id("") and
+-- Hyprland reports an empty class. The title is set statically by
+-- .title("Trastea") in src/main.rs, so it is the only stable handle today.
+-- The optional class group keeps this rule working if I later set
+-- application_id = "trastea" in the app.
+o.window({ class = "^(trastea)?$", title = "^Trastea$" }, {
+  float = true,
+  size = { 1920, 1080 },
+  center = true,
+})
