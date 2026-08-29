@@ -8,16 +8,19 @@ omarchy.clonedFrom) is the only seam. A clone pins its plugin at the version it
 was taken from, so this script re-clones from the current package and re-applies
 each patch; post-update.d runs it after every `omarchy update`.
 
-Patches, one per plugin:
+Patches, by plugin:
   menu, clipboard  Ctrl+N/Ctrl+J move down, Ctrl+P/Ctrl+K move up, mirroring the
                    plugin's own Qt.Key_Down / Qt.Key_Up bodies.
+  clipboard        Enter and Shift+Enter swap: Enter copies the entry without
+                   pasting, Shift+Enter copies and pastes it.
   idle             the idle "screensaver" step powers the displays off instead of
                    launching the screensaver. Waking is stock: on activity the
                    service runs omarchy-system-wake.
 
-Each patch is idempotent and reports whether it applied. A patch that no longer
-matches means upstream moved the code: the clone is dropped so the packaged
-plugin takes over, and a notification names it.
+Each patch is idempotent and reports whether it applied; a plugin's patches all
+have to apply to the same file. A patch that no longer matches means upstream
+moved the code: the clone is dropped so the packaged plugin takes over, and a
+notification names it.
 """
 
 import getpass
@@ -31,6 +34,7 @@ from pathlib import Path
 
 PLUGINS_DIR = Path.home() / ".config/omarchy/plugins"
 NAV_MARK = "vim-style navigation (local addition)"
+COPY_MARK = "Enter copies (local addition)"
 DPMS_MARK = 'hl.dsp.dpms(\\"off\\")'
 KEEP_BACKUPS = 2
 
@@ -78,6 +82,41 @@ def patch_nav(path: Path) -> bool:
     return True
 
 
+def patch_enter_copies(path: Path) -> bool:
+    """Swap the clipboard's Enter and Shift+Enter so Enter only copies.
+
+    Stock Enter copies the entry and pastes it into whatever has focus, which is
+    the wrong default when the menu is opened to stage something for later. The
+    two calls are just swapped: the Alt+Enter "open" branch above them and the
+    cursorActive guards are stock.
+    """
+    src = path.read_text()
+    if COPY_MARK in src:
+        return True
+
+    match = re.search(
+        r"(?P<ind>[ \t]*)else if \(root\.cursorActive"
+        r" && \(event\.modifiers & Qt\.ShiftModifier\)\)"
+        r" root\.copyIndex\(root\.selectedIndex\)\n"
+        r"[ \t]*else if \(root\.cursorActive\)"
+        r" root\.activateIndex\(root\.selectedIndex\)\n",
+        src,
+    )
+    if not match:
+        return False
+
+    ind = match.group("ind")
+    path.write_text(
+        src[: match.start()]
+        + f"{ind}// {COPY_MARK}: Enter copies only, Shift+Enter copies and pastes.\n"
+        + f"{ind}else if (root.cursorActive && (event.modifiers & Qt.ShiftModifier))"
+        f" root.activateIndex(root.selectedIndex)\n"
+        + f"{ind}else if (root.cursorActive) root.copyIndex(root.selectedIndex)\n"
+        + src[match.end() :]
+    )
+    return True
+
+
 def patch_idle_dpms(path: Path) -> bool:
     """Blank the displays where the idle service would launch the screensaver.
 
@@ -97,9 +136,9 @@ def patch_idle_dpms(path: Path) -> bool:
 
 
 PLUGINS = [
-    ("menu", patch_nav),
-    ("clipboard", patch_nav),
-    ("idle", patch_idle_dpms),
+    ("menu", [patch_nav]),
+    ("clipboard", [patch_nav, patch_enter_copies]),
+    ("idle", [patch_idle_dpms]),
 ]
 
 
@@ -143,7 +182,7 @@ def main() -> int:
     user = os.environ.get("USER") or getpass.getuser()
     touched, failed = [], []
 
-    for plugin_id, patch in PLUGINS:
+    for plugin_id, patches in PLUGINS:
         clone_id = f"{user}.{plugin_id}"
         target = PLUGINS_DIR / clone_id
         print(f"{clone_id}:")
@@ -156,7 +195,13 @@ def main() -> int:
             print(f"  clone failed: {result.stderr.strip() or result.stdout.strip()}")
             continue
 
-        patched = [q.name for q in sorted(target.glob("*.qml")) if patch(q)]
+        # A file a patch does not touch (menu's BarWidget.qml) is not a failure;
+        # a file some but not all of them touch is, so the list is not lazy.
+        patched = [
+            q.name
+            for q in sorted(target.glob("*.qml"))
+            if all([patch(q) for patch in patches])
+        ]
         if patched:
             touched.append(clone_id)
             print(f"  patched {', '.join(patched)}")
