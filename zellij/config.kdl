@@ -371,7 +371,13 @@ default_shell "fish"
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
-// scrollback_editor "/usr/bin/vim"
+//
+// Set explicitly for the same reason as `default_shell`: zellij resolves this in
+// the detached server, not in the pane's shell, so fish's `set -gx EDITOR nvim`
+// never reaches it and `e` in scroll mode came up with no editor at all. A bare
+// name is enough now that the client fixes PATH before exec'ing zellij, and it
+// keeps this portable between nix-darwin and Omarchy, where nvim lives elsewhere.
+scrollback_editor "nvim"
  
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`
