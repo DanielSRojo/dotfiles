@@ -236,3 +236,17 @@ o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
 -- already crowd, and onto the ALT column.
 hl.unbind("SUPER + CTRL + V") -- was: Clipboard manager
 o.bind("SUPER + ALT + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")
+
+-- Pick the audio device from the Quickshell menu, one key per direction:
+-- VolumeUp picks where sound goes, VolumeDown picks where it comes from.
+-- SHIFT + XF86AudioMute still rotates through the outputs; with three of them
+-- on this machine, being asked is faster than cycling past the two you did not
+-- want, and inputs had no key at all.
+--
+-- The script is not on PATH -- stow puts ~/.dotfiles/omarchy/bin under
+-- ~/.config, which nothing adds to it -- so the path is spelled out here rather
+-- than left to the shell, which exec_cmd does not promise to go through.
+local audio_device_select = (os.getenv("HOME") or "") .. "/.config/omarchy/bin/audio-device-select"
+
+o.bind("SUPER + XF86AudioRaiseVolume", "Select audio output", audio_device_select .. " output")
+o.bind("SUPER + XF86AudioLowerVolume", "Select audio input", audio_device_select .. " input")
