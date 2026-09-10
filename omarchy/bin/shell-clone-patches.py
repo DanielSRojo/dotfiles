@@ -11,6 +11,9 @@ each patch; post-update.d runs it after every `omarchy update`.
 Patches, by plugin:
   menu, clipboard  Ctrl+N/Ctrl+J move down, Ctrl+P/Ctrl+K move up, mirroring the
                    plugin's own Qt.Key_Down / Qt.Key_Up bodies.
+  menu             an AppLibrary of its own, because 4.0.3 withholds the host's
+                   from a clone and leaves the Apps submenu empty. Temporary;
+                   see patch_app_library for the upstream issue.
   clipboard        Enter and Shift+Enter swap: Enter copies the entry without
                    pasting, Shift+Enter copies and pastes it.
   idle             the idle "screensaver" step powers the displays off instead of
@@ -36,6 +39,7 @@ PLUGINS_DIR = Path.home() / ".config/omarchy/plugins"
 NAV_MARK = "vim-style navigation (local addition)"
 COPY_MARK = "Enter copies (local addition)"
 DPMS_MARK = 'hl.dsp.dpms(\\"off\\")'
+APPLIB_MARK = "host appLibrary fallback (local addition)"
 KEEP_BACKUPS = 2
 
 
@@ -79,6 +83,61 @@ def patch_nav(path: Path) -> bool:
     )
     at = down.end("body")
     path.write_text(src[:at].rstrip("\n") + add + "\n" + src[at:])
+    return True
+
+
+def patch_app_library(path: Path) -> bool:
+    """Give the menu clone an AppLibrary of its own so Apps is not empty.
+
+    Since 4.0.3 the shell hands a third-party plugin a capability-scoped
+    PluginShellApi instead of itself, and that object's appLibrary is gated on
+    manifestHasKind(manifest, "menu"). The check calls Array.isArray on a
+    manifest that has been through the panel Instantiator's model, where the
+    nested array arrives as a QVariantList, so it reports false and the clone is
+    handed null. mergeAppRows then returns on its first line and the Apps
+    submenu comes up empty, with nothing logged. The packaged menu never reaches
+    the check: pluginShellFor short-circuits on __isFirstParty and returns the
+    real shell, which is why only a clone is affected. Menu.qml itself is
+    unchanged from 4.0.2 - the whole scoping layer is what is new.
+
+    Instantiating the host's own AppLibrary keeps entries, hidden-entry
+    filtering, icons, launching and removal identical to the packaged menu,
+    rather than reimplementing any of it, and the property still prefers the
+    host's shared instance whenever one is actually offered.
+
+    Reported as https://github.com/omacom/omarchy/issues/11190. Drop this patch
+    once that lands, so the clone shares one AppLibrary again.
+    """
+    src = path.read_text()
+    if APPLIB_MARK in src:
+        return True
+
+    prop = re.search(
+        r"\n(?P<ind>[ \t]*)readonly property var appLibrary:"
+        r" root\.shell \? root\.shell\.appLibrary : null\n",
+        src,
+    )
+    if not prop or "import qs.Commons\n" not in src:
+        return False
+
+    ind = prop.group("ind")
+    src = (
+        src[: prop.start()]
+        + f"\n{ind}// {APPLIB_MARK}: 4.0.3 gates the scoped shell's appLibrary\n"
+        + f"{ind}// on a manifest kind check that a clone cannot pass, so the\n"
+        + f"{ind}// Apps submenu needs an instance of the host's own class.\n"
+        + f"{ind}readonly property var appLibrary:"
+        f" (root.shell && root.shell.appLibrary) || localAppLibrary\n"
+        + f"\n{ind}AppLibrary {{ id: localAppLibrary }}\n"
+        + src[prop.end() :]
+    )
+    # AppLibrary lives in the shell's own qs.services module, which the stock
+    # menu has no reason to import. Spliced after the property rewrite so that
+    # rewrite's offsets are still the ones re.search handed back.
+    src = src.replace(
+        "import qs.Commons\n", "import qs.Commons\nimport qs.services\n", 1
+    )
+    path.write_text(src)
     return True
 
 
@@ -136,7 +195,7 @@ def patch_idle_dpms(path: Path) -> bool:
 
 
 PLUGINS = [
-    ("menu", [patch_nav]),
+    ("menu", [patch_nav, patch_app_library]),
     ("clipboard", [patch_nav, patch_enter_copies]),
     ("idle", [patch_idle_dpms]),
 ]
