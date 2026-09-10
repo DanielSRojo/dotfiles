@@ -5,6 +5,7 @@ abbr -a la 'eza -la --icons'
 abbr -a lt 'eza -aT --icons --group-directories-first'
 abbr -a l. "eza -a | grep -e '^\.'"
 abbr -a v nvim
+abbr -a njd 'nvim (jj diff --name-only)'
 abbr -a grn 'grep -rni'
 abbr -a curlhc 'curl -s -o /dev/null -I -w "%{http_code}"'
 abbr -a ls eza
