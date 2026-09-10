@@ -25,6 +25,12 @@ fish_add_path -g /sbin /usr/sbin \
     $HOME/go/bin \
     /usr/local/go/bin
 
+# Packages installed by nix (see ~/code/github.com/danielsrojo/nix) must win
+# over the pacman copies they replace. --move hoists these to the front, ahead
+# of /sbin, which is a symlink to /usr/bin on Arch and so would otherwise put
+# every distro binary first.
+fish_add_path -gm $HOME/.nix-profile/bin /nix/var/nix/profiles/default/bin
+
 set -gx GOPATH ~/code/go
 set -gx EDITOR nvim
 set -gx VISUAL nvim
