@@ -250,3 +250,11 @@ local audio_device_select = (os.getenv("HOME") or "") .. "/.config/omarchy/bin/a
 
 o.bind("SUPER + XF86AudioRaiseVolume", "Select audio output", audio_device_select .. " output")
 o.bind("SUPER + XF86AudioLowerVolume", "Select audio input", audio_device_select .. " input")
+
+-- Swap the two menu keys: the apps menu is the one reached for all day, so it
+-- takes the bare chord and the root menu moves under ALT.
+hl.unbind("SUPER + SPACE")       -- was: Omarchy menu
+hl.unbind("SUPER + ALT + SPACE") -- was: Apps menu
+
+o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
+o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle")
