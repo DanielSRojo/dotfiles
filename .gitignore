@@ -43,3 +43,13 @@ ghostty/config.local
 # per-file symlinks, so today they land there and never in this tree -- this
 # guards the case where a directory gets folded and they do.
 *.bak.*
+
+# herdr keeps its live session state in the same directory as its config, which
+# stow points at this repo: unix sockets, the server/client logs, the restored
+# session snapshot and the plugin lockfile are all machine-local runtime output.
+# Today stow links config.toml individually and these never enter the tree --
+# this guards the case where the directory gets folded and they do.
+herdr/*.sock
+herdr/*.log
+herdr/session.json
+herdr/.plugins.lock
