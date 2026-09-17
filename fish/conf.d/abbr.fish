@@ -13,6 +13,13 @@ abbr -a cat 'bat -p'
 abbr -a cy 'bat --language=yaml'
 abbr -a fvim 'fzf --print0 | xargs -0 -o vim'
 
+# Copy stdin to the clipboard: pbcopy on macOS, wl-copy under Wayland.
+if command -q pbcopy
+    abbr -a clip pbcopy
+else if command -q wl-copy
+    abbr -a clip wl-copy
+end
+
 abbr -a grep 'grep --color=auto'
 abbr -a fgrep 'fgrep --color=auto'
 abbr -a egrep 'egrep --color=auto'

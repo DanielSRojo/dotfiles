@@ -4,6 +4,17 @@
 #
 # Merged rather than assigned so a per-machine autoload/*work*.nu can add its
 # own regardless of which file nushell sources first.
+
+# Copy stdin to the clipboard: pbcopy on macOS, wl-copy under Wayland. Bound
+# out here and spread in below because a record literal takes no conditionals.
+let clipboard = if (which pbcopy | is-not-empty) {
+    {clip: "pbcopy"}
+} else if (which wl-copy | is-not-empty) {
+    {clip: "wl-copy"}
+} else {
+    {}
+}
+
 $env.config.abbreviations = ($env.config.abbreviations | merge {
     # System
     l: "eza -l --icons"
@@ -20,6 +31,7 @@ $env.config.abbreviations = ($env.config.abbreviations | merge {
     cat: "bat -p"
     cy: "bat --language=yaml"
     fvim: "fzf --print0 | xargs -0 -o vim"
+    ...$clipboard
 
     grep: "grep --color=auto"
     fgrep: "fgrep --color=auto"
