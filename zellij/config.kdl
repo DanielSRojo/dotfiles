@@ -256,17 +256,7 @@ web_client {
  
 // Choose the theme that is specified in the themes section.
 // Default: default
-//
-// Defined in themes/omarchy.kdl, which is deliberately untracked (see
-// .gitignore): a theme-set hook rewrites it on every `omarchy theme set`, so
-// zellij follows the live theme along with everything else Omarchy restyles.
-//
-// On a machine without that hook the file would simply be absent and zellij
-// would fall back to its plain default. Rather than accept that, this Mac keeps
-// a hand-written omarchy.kdl holding zellij's builtin `ayu-dark` verbatim, and
-// ghostty/themes/ayu-dark is derived from the same builtin — so the fallback is
-// ayu-dark in both, and Omarchy still owns the theme where Omarchy exists.
-theme "omarchy"
+theme "ayu-dark"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -371,12 +361,6 @@ default_shell "fish"
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
-//
-// Set explicitly for the same reason as `default_shell`: zellij resolves this in
-// the detached server, not in the pane's shell, so fish's `set -gx EDITOR nvim`
-// never reaches it and `e` in scroll mode came up with no editor at all. A bare
-// name is enough now that the client fixes PATH before exec'ing zellij, and it
-// keeps this portable between nix-darwin and Omarchy, where nvim lives elsewhere.
 scrollback_editor "nvim"
  
 // A fixed name to always give the Zellij session.
