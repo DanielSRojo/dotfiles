@@ -34,23 +34,33 @@ require("lazy").setup({
     -- lazy-load trigger that resolves to nothing -- harmless, but don't expect it
     -- to prompt.
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
+    -- Editor extras: no language server behind them, so nothing to declare in
+    -- home.nix.
     { import = "lazyvim.plugins.extras.coding.yanky" },
     { import = "lazyvim.plugins.extras.editor.harpoon2" },
     { import = "lazyvim.plugins.extras.editor.neo-tree" },
+    -- The language extras. Each one pairs with a group in home.nix's
+    -- language-server list -- the extra wires the server, formatter and linter
+    -- into LazyVim, nixpkgs provides the binaries. Enabling an extra without
+    -- its packages (or the reverse) leaves one half doing nothing.
+    --
+    -- util.dot is the "shell" group: it brings bashls. shfmt and shellcheck
+    -- need no extra, LazyVim configures both in core.
+    --
+    -- lang.git, lang.json and lang.prisma are deliberately absent: their
+    -- servers have no group in home.nix, so importing them would configure
+    -- binaries that are not on PATH.
+    { import = "lazyvim.plugins.extras.util.dot" },
     { import = "lazyvim.plugins.extras.lang.docker" },
-    { import = "lazyvim.plugins.extras.lang.git" },
     { import = "lazyvim.plugins.extras.lang.go" },
     { import = "lazyvim.plugins.extras.lang.helm" },
-    { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.nix" },
-    { import = "lazyvim.plugins.extras.lang.prisma" },
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.terraform" },
     { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
-    { import = "lazyvim.plugins.extras.util.dot" },
     -- import/override with your plugins
     { import = "plugins" },
   },
