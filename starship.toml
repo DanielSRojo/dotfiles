@@ -29,7 +29,7 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
-# From Omarchy's default prompt: short paths, with the repo root picked out.
+# Short paths, with the repo root picked out.
 truncation_length = 2
 truncation_symbol = "…/"
 repo_root_style = "bold cyan"
@@ -206,7 +206,7 @@ symbol = " "
 [git_state]
 disabled = true
 
-# Nerd-font glyphs from Omarchy's default prompt, replacing starship's ASCII.
+# Nerd-font glyphs, replacing starship's ASCII.
 # git_status stays enabled -- unlike git_branch/git_commit, it is live under jj.
 [git_status]
 format     = '[$all_status]($style)'

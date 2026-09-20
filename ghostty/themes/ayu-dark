@@ -1,13 +1,8 @@
 # Ayu Dark, taken from zellij's builtin `ayu-dark` (zellij 0.45.0) rather than
 # from ghostty's own bundled Ayu, which is a different, older cut of the palette.
 # The builtin is the source of truth: every value here that it pins is copied
-# verbatim, and zellij/themes/omarchy.kdl (the Mac's no-Omarchy fallback) is the
-# same builtin renamed. Without this, zellij paints its status bar and pane
-# frames on #131721 while ghostty paints the window #0b0e14, and the seam shows.
-#
-# This is only the base. On the Omarchy box the include at the end of ../config
-# loads the live theme last and overrides everything here, which is the point:
-# `omarchy theme set` restyles ghostty and zellij together.
+# verbatim. Without this, zellij paints its status bar and pane frames on
+# #131721 while ghostty paints the window #0b0e14, and the seam shows.
 #
 # Surfaces zellij paints, taken from the builtin's component colours:
 # background/foreground are text_unselected.background/.base, the selection is
