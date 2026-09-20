@@ -43,13 +43,24 @@ auto-update = off
 confirm-close-surface = false
 
 # zellij can serialize a resurrection layout that has lost every terminal pane
-# (seen 2026-08-29: both tabs held only the tab-bar and status-bar plugins).
-# Resurrecting that has nothing to run, so zellij prints "Bye from Zellij!" and
-# exits *with status 0* — `||` never fires — the pty closes and the window
-# vanishes at launch. Guard on elapsed time instead: a session that dies within
-# 3s drops to a shell that says why, so the window stays up and the state is
-# repairable from inside it. A real quit takes longer and still closes.
-initial-command = t=$(date +%s); zellij attach --create main; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij exited immediately (status $s); dropping to a shell"; exec fish; }
+# (seen 2026-08-29, and again 2026-09-19: the tab held only the tab-bar and
+# status-bar plugins). Resurrecting that has nothing to run, so zellij prints
+# "Bye from Zellij!" and exits *with status 0* — `||` never fires — the pty
+# closes and the window vanishes at launch.
+#
+# The husk is self-perpetuating, which is why this recurs on every boot rather
+# than once: nothing ever rewrites it. A SIGTERM'd server writes no layout at
+# all, and exiting the last pane deletes the session outright, so neither
+# teardown path regenerates the file — while the failed resurrect dies far too
+# fast to serialize anything new over it. Once written it traps every attach
+# until the session is deleted by hand.
+#
+# So guard on elapsed time (status can't see it) and repair instead of merely
+# reporting: a session that dies within 3s has its state cleared and is retried
+# once. Only if that also dies do we drop to a shell that says why, keeping the
+# window up. A real quit takes longer and still closes. Discarding resurrection
+# state here is safe — a session that dies that fast has none worth keeping.
+initial-command = t=$(date +%s); zellij attach --create main; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij died in <3s (status $s); clearing stale session state"; zellij delete-session main --force; t=$(date +%s); zellij attach --create main; [ $(($(date +%s)-t)) -lt 3 ] && { echo "still dying immediately; dropping to a shell"; exec fish; }; }
 
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
