@@ -35,6 +35,20 @@ set -gx GOPATH ~/code/go
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
+# Point the docker CLI at podman's socket, so `docker` and anything shelling out
+# to it (the pluginetes MCP launchers, for one) drive the podman machine without
+# a Docker daemon.
+#
+# Derived from $TMPDIR instead of hardcoded: podman puts this socket under the
+# per-user macOS temp dir, which is what $TMPDIR already holds. Guarded on the
+# socket existing so a stopped podman machine leaves DOCKER_HOST unset rather
+# than pinning docker to a dead socket and masking whatever context (OrbStack,
+# colima) is actually up. No-op on Linux, where TMPDIR is unset.
+if set -q TMPDIR
+    set -l podman_sock (string trim -r -c / -- $TMPDIR)/podman/podman-machine-default-api.sock
+    test -S $podman_sock; and set -gx DOCKER_HOST "unix://$podman_sock"
+end
+
 # Render man pages through bat. MANROFFOPT=-c works around groff's overstrike
 # output, which col strips.
 if command -q bat
