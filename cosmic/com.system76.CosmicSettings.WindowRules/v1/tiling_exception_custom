@@ -1,0 +1,41 @@
+// SCHEMA NOTE: this file is Vec<PreciseApplicationException>, which is NOT the same
+// shape as tiling_exception_defaults (Vec<DefaultApplicationException>).
+//   defaults: (appid: String, titles: [String])   <-- a LIST of titles
+//   custom:   (appid: String, title: String, enabled: bool)  <-- ONE title + enabled
+// Getting this wrong makes cosmic-comp discard the whole file at debug log level,
+// with no visible error. One entry per (appid, title) pair.
+//
+// Both fields are regexes, case-sensitive and UNANCHORED (substring), so pin with ^...$.
+// Matched once, when the window is MAPPED - a title set later will never match.
+[
+	// pavucontrol: "org.pulseaudio.pavucontrol" on Wayland, "Pavucontrol" via Xwayland
+	(appid: "(?i)pavucontrol", title: ".*", enabled: true),
+
+	// Telegram Desktop: "org.telegram.desktop" on Wayland, "TelegramDesktop"
+	// via Xwayland. Substring-matched, so one regex covers both.
+	(appid: "(?i)telegram", title: ".*", enabled: true),
+
+	// Portal file pickers. The cosmic backend is preferred here and its dialog
+	// (com.system76.CosmicFilesDialog) is already in the defaults; these are the
+	// gtk/gnome backends used when an app or the portal falls back to them.
+	(appid: "^xdg-desktop-portal-(gtk|gnome)$", title: ".*", enabled: true),
+
+	// In-process GTK/Qt file choosers: these are normal toplevels carrying the
+	// parent app's appid, so they can only be matched on title.
+	(appid: ".*", title: "^(Open|Save|Save As|Open File|Open Files|Open Folder|Save File)$", enabled: true),
+	(appid: ".*", title: "^(Open|Save|Select|Choose|Import|Export) (a |an |the )?(File|Files|Folder|Folders|Directory|Image|Images|Document|Location)s?\\b", enabled: true),
+	(appid: ".*", title: "^Save (File |Image |Page |Video |Link )?As\\b", enabled: true),
+	(appid: ".*", title: "^File Upload$", enabled: true),
+	(appid: ".*", title: "^Select (Folder|Directory|Files?)$", enabled: true),
+
+	// Disables the built-in default that floats Steam's main window (it maps
+	// with an empty appid and title "Steam"). Must match the default's appid
+	// and title exactly. The default for Steam Guard/Login dialogs stays on.
+	(appid: "", title: "Steam", enabled: false),
+
+	// NOTE: Zen extension popouts (Bitwarden etc) are deliberately absent.
+	// They map with the title "Zen Browser" and only become
+	// "Extension: (Bitwarden Password Manager) - ..." ~235ms later, after the
+	// exception has already been evaluated. Matching the map-time title would
+	// require "^Zen Browser$", which would float every Zen window. Use Super+G.
+]
