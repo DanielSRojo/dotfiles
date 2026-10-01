@@ -1,4 +1,5 @@
-right_format = '$kubernetes'
+# Kubernetes last on the first line, right before the prompt character.
+format = '$all$kubernetes$line_break$character'
 
 # Guard against slow modules. custom.jj sets ignore_timeout, so it is exempt.
 command_timeout = 200
