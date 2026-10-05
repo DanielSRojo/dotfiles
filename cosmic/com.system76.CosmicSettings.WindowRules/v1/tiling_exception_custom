@@ -15,6 +15,10 @@
 	// via Xwayland. Substring-matched, so one regex covers both.
 	(appid: "(?i)telegram", title: ".*", enabled: true),
 
+	// TONE3000 standalone: a JUCE app running under Xwayland, so the appid is
+	// its WM_CLASS "TONE3000" (matches startupWMClass in pkgs/tone3000.nix).
+	(appid: "(?i)^tone3000$", title: ".*", enabled: true),
+
 	// Portal file pickers. The cosmic backend is preferred here and its dialog
 	// (com.system76.CosmicFilesDialog) is already in the defaults; these are the
 	// gtk/gnome backends used when an app or the portal falls back to them.
