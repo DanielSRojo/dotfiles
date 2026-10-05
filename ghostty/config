@@ -60,15 +60,21 @@ confirm-close-surface = false
 # once. Only if that also dies do we drop to a shell that says why, keeping the
 # window up. A real quit takes longer and still closes. Discarding resurrection
 # state here is safe — a session that dies that fast has none worth keeping.
-initial-command = t=$(date +%s); zellij attach --create main; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij died in <3s (status $s); clearing stale session state"; zellij delete-session main --force; t=$(date +%s); zellij attach --create main; [ $(($(date +%s)-t)) -lt 3 ] && { echo "still dying immediately; dropping to a shell"; exec fish; }; }
+#
+# ZELLIJ_THEME, when set (by `env =` in config.local), overrides the `theme` in
+# zellij/config.kdl, which has no per-machine file of its own. zellij only reads
+# it when it creates the session; attaching to one already running keeps the
+# theme that session started with.
+initial-command = t=$(date +%s); zellij attach --create main ${ZELLIJ_THEME:+options --theme "$ZELLIJ_THEME"}; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij died in <3s (status $s); clearing stale session state"; zellij delete-session main --force; t=$(date +%s); zellij attach --create main ${ZELLIJ_THEME:+options --theme "$ZELLIJ_THEME"}; [ $(($(date +%s)-t)) -lt 3 ] && { echo "still dying immediately; dropping to a shell"; exec fish; }; }
 
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
 
-# themes/ayu-dark in this directory, not ghostty's bundled Ayu: the palette is
-# taken from zellij's builtin ayu-dark, the newer cut, so the window and zellij's
-# chrome share a background instead of showing a seam.
-theme = ayu-dark
+# Ghostty's bundled GitHub Light High Contrast. Its white canvas is the one
+# zellij/themes/github-light-high-contrast.kdl paints its chrome on, so they
+# show no seam. A machine that keeps Ayu sets `theme = ayu-dark` (themes/ in
+# this directory) in config.local instead; see the README.
+theme = "GitHub Light High Contrast"
 
 window-theme = ghostty
 window-decoration = none

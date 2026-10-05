@@ -1,0 +1,9 @@
+# Read by git alongside ~/.gitconfig (which keeps identity and the per-org
+# includeIf blocks, so it stays untracked). Delta is configured here because jj
+# pages through it too (ui.pager in jj/config.toml) and delta reads git config.
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    light = true
+    # From bat/themes: delta sees it only after `bat cache --build`.
+    syntax-theme = GitHub-Light-High-Contrast

@@ -256,7 +256,7 @@ web_client {
  
 // Choose the theme that is specified in the themes section.
 // Default: default
-theme "ayu-dark"
+theme "github-light-high-contrast"
  
 // Choose the base input mode of zellij.
 // Default: normal

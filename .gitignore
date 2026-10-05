@@ -20,6 +20,9 @@ nushell/plugin.msgpackz
 # with the live one and abort the whole run.
 nvim/lazyvim.json
 
+# Per-machine nvim overrides, read by lua/plugins/github-theme.lua.
+nvim/lua/config/local.lua
+
 # Everything under these directories is generated or machine-local: fisher
 # installs plugin files into $__fish_config_dir, which stow points at this repo,
 # and work-machine snippets live in conf.d too. Track only the files we author —

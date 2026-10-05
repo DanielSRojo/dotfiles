@@ -1,5 +1,6 @@
--- Everforest is not one of the two colorschemes LazyVim bundles (tokyonight,
--- catppuccin), so it needs its own spec. `lazy = true` overrides the
+-- Available but not active: the colorscheme LazyVim actually loads is set in
+-- github-theme.lua. Everforest is not one of the two colorschemes LazyVim bundles
+-- (tokyonight, catppuccin), so it needs its own spec. `lazy = true` overrides the
 -- `defaults.lazy = false` in config/lazy.lua on purpose: LazyVim loads the
 -- colorscheme itself during startup, so eager-loading only costs startup time.
 -- That is also why the upstream README's `priority = 1000` is absent -- it
@@ -21,5 +22,4 @@ return {
       diagnostic_virtual_text = "coloured",
     },
   },
-  { "LazyVim/LazyVim", opts = { colorscheme = "everforest" } },
 }

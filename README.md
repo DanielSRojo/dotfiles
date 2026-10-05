@@ -16,8 +16,9 @@ ln -s ~/.config/nushell ~/Library/Application\ Support/nushell
 
 `bat` does not read `bat/themes/*.tmTheme` directly — it only sees themes from a
 binary cache in `~/.cache/bat`, which is machine-local and not tracked here.
-Until `bat cache --build` runs, the `--theme="Ayu-Dark"` in `bat/config` silently
-falls back to bat's default theme.
+Until `bat cache --build` runs, the `--theme="GitHub-Light-High-Contrast"` in
+`bat/config` silently falls back to bat's default theme, and so does delta's
+`syntax-theme` in `git/config`.
 
 ## Day to day
 
@@ -42,16 +43,55 @@ Everything here is shared between the Linux and the macOS box, so anything that
 genuinely differs per machine lives in an untracked file that the tracked config
 pulls in:
 
-| Tool | Untracked file               | How it is picked up                        |
-| ---- | ---------------------------- | ------------------------------------------ |
-| fish | `fish/conf.d/*work*.fish`    | fish sources everything in `conf.d`        |
-| jj   | `jj/conf.d/*work*.toml`      | jj layers `conf.d` on top of `config.toml` |
-| nu   | `nushell/autoload/*work*.nu` | nushell sources every `.nu` in `autoload`  |
+| Tool    | Untracked file                | How it is picked up                              |
+| ------- | ----------------------------- | ------------------------------------------------ |
+| fish    | `fish/conf.d/*work*.fish`     | fish sources everything in `conf.d`              |
+| jj      | `jj/conf.d/*work*.toml`       | jj layers `conf.d` on top of `config.toml`       |
+| nu      | `nushell/autoload/*work*.nu`  | nushell sources every `.nu` in `autoload`        |
+| ghostty | `ghostty/config.local`        | `config-file` at the end of `ghostty/config`     |
+| nvim    | `nvim/lua/config/local.lua`   | `pcall(require, ...)` in `plugins/github-theme.lua` |
+| git     | `~/.gitconfig`                | git reads it after `git/config`, so it wins      |
 
-ghostty and zellij have a single shared config each and no override file: keep
-OS-specific values out of them and lean on settings that parse everywhere (OSC
-52 for zellij's clipboard, `$EDITOR` for its scrollback editor, `font-thicken`
-in ghostty, which is macOS-only in effect but harmless to parse on Linux).
+zellij has a single shared config and no override file: keep OS-specific
+values out of it and lean on settings that parse everywhere (OSC 52 for its
+clipboard, `$EDITOR` for its scrollback editor). The one thing that does vary,
+its theme, comes in through ghostty instead (below). Likewise `font-thicken` in
+ghostty is macOS-only in effect but harmless to parse on Linux.
+
+### Theme
+
+The shared default is GitHub Light High Contrast. A machine that keeps Ayu Dark
+(bluebox) overrides it in three untracked files. The Ayu themes stay tracked for
+this: `ghostty/themes/ayu-dark` and `bat/themes/Ayu-Dark.tmTheme`; zellij's
+`ayu-dark` is a builtin.
+
+`ghostty/config.local` covers ghostty, zellij and bat. Both `env` lines reach
+every shell started inside ghostty, zellij included. ghostty's `initial-command`
+hands `ZELLIJ_THEME` to zellij, which only applies it when the session is
+created: run `zellij delete-session main --force` once after setting it.
+
+```
+theme = ayu-dark
+env = ZELLIJ_THEME=ayu-dark
+env = BAT_THEME=Ayu-Dark
+```
+
+`~/.gitconfig`, for delta, whose `syntax-theme` in `git/config` would otherwise
+win over `BAT_THEME`:
+
+```ini
+[delta]
+    light = false
+    dark = true
+    syntax-theme = Ayu-Dark
+```
+
+`nvim/lua/config/local.lua` (Ayu has no LazyVim theme here; everforest is what
+nvim ran before):
+
+```lua
+return { colorscheme = "everforest" }
+```
 
 ### macOS
 

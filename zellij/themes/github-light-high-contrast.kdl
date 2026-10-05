@@ -1,0 +1,136 @@
+// GitHub Light High Contrast. Zellij has no builtin for it, so this follows the
+// structure of the builtin flexoki-dark (see flexoki-light.kdl beside it) with
+// Primer's light_high_contrast colours, as ghostty and github-nvim-theme use:
+// canvas white, fg #0e1116, canvas.subtle #e7ecf0 for selections, the accent
+// blue #0349b4 for the active tab and pane, and the ANSI 2/4/5/6 accents.
+//
+// text_unselected.background is the canvas (#ffffff), the same background
+// ghostty's bundled "GitHub Light High Contrast" paints, so there is no seam.
+themes {
+    github-light-high-contrast {
+        text_unselected {
+            base 14 17 22
+            background 255 255 255
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        text_selected {
+            base 14 17 22
+            background 231 236 240
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        ribbon_selected {
+            base 255 255 255
+            background 3 73 180
+            emphasis_0 255 255 255
+            emphasis_1 255 198 123
+            emphasis_2 210 254 219
+            emphasis_3 231 236 240
+        }
+        ribbon_unselected {
+            base 14 17 22
+            background 231 236 240
+            emphasis_0 75 83 93
+            emphasis_1 160 17 31
+            emphasis_2 98 44 188
+            emphasis_3 3 73 180
+        }
+        table_title {
+            base 3 73 180
+            background 0
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        table_cell_selected {
+            base 14 17 22
+            background 231 236 240
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        table_cell_unselected {
+            base 14 17 22
+            background 255 255 255
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        list_selected {
+            base 14 17 22
+            background 231 236 240
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        list_unselected {
+            base 14 17 22
+            background 255 255 255
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 2 76 26
+            emphasis_3 98 44 188
+        }
+        frame_unselected {
+            base 136 146 157
+            background 0
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 98 44 188
+            emphasis_3 0
+        }
+        frame_selected {
+            base 3 73 180
+            background 0
+            emphasis_0 112 44 0
+            emphasis_1 27 124 131
+            emphasis_2 98 44 188
+            emphasis_3 0
+        }
+        frame_highlight {
+            base 112 44 0
+            background 0
+            emphasis_0 98 44 188
+            emphasis_1 112 44 0
+            emphasis_2 112 44 0
+            emphasis_3 112 44 0
+        }
+        exit_code_success {
+            base 2 76 26
+            background 0
+            emphasis_0 27 124 131
+            emphasis_1 255 255 255
+            emphasis_2 98 44 188
+            emphasis_3 3 73 180
+        }
+        exit_code_error {
+            base 160 17 31
+            background 0
+            emphasis_0 112 44 0
+            emphasis_1 0
+            emphasis_2 0
+            emphasis_3 0
+        }
+        multiplayer_user_colors {
+            player_1 98 44 188
+            player_2 3 73 180
+            player_3 0
+            player_4 112 44 0
+            player_5 27 124 131
+            player_6 0
+            player_7 160 17 31
+            player_8 0
+            player_9 0
+            player_10 0
+        }
+    }
+}

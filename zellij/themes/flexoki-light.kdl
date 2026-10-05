@@ -1,0 +1,135 @@
+// Flexoki Light. Zellij 0.45 only ships `flexoki-dark` as a builtin, so this is
+// that builtin's structure with each colour swapped for its light-mode role
+// (https://stephango.com/flexoki): paper for bg, tx for text, the 600 accents
+// in place of the 400 ones, and the light ui greys in place of the dark ones.
+//
+// text_unselected.background is paper (#fffcf0), the same background ghostty's
+// bundled "Flexoki Light" paints, so the window and zellij's chrome show no seam.
+themes {
+    flexoki-light {
+        text_unselected {
+            base 16 15 15
+            background 255 252 240
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        text_selected {
+            base 16 15 15
+            background 218 216 206
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        ribbon_selected {
+            base 16 15 15
+            background 208 162 21
+            emphasis_0 16 15 15
+            emphasis_1 175 48 41
+            emphasis_2 94 64 157
+            emphasis_3 32 94 166
+        }
+        ribbon_unselected {
+            base 16 15 15
+            background 218 216 206
+            emphasis_0 64 62 60
+            emphasis_1 175 48 41
+            emphasis_2 94 64 157
+            emphasis_3 32 94 166
+        }
+        table_title {
+            base 173 131 1
+            background 0
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        table_cell_selected {
+            base 16 15 15
+            background 218 216 206
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        table_cell_unselected {
+            base 16 15 15
+            background 255 252 240
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        list_selected {
+            base 16 15 15
+            background 218 216 206
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        list_unselected {
+            base 16 15 15
+            background 255 252 240
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 102 128 11
+            emphasis_3 94 64 157
+        }
+        frame_unselected {
+            base 183 181 172
+            background 0
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 94 64 157
+            emphasis_3 0
+        }
+        frame_selected {
+            base 173 131 1
+            background 0
+            emphasis_0 188 82 21
+            emphasis_1 36 131 123
+            emphasis_2 94 64 157
+            emphasis_3 0
+        }
+        frame_highlight {
+            base 188 82 21
+            background 0
+            emphasis_0 94 64 157
+            emphasis_1 188 82 21
+            emphasis_2 188 82 21
+            emphasis_3 188 82 21
+        }
+        exit_code_success {
+            base 102 128 11
+            background 0
+            emphasis_0 36 131 123
+            emphasis_1 255 252 240
+            emphasis_2 94 64 157
+            emphasis_3 32 94 166
+        }
+        exit_code_error {
+            base 175 48 41
+            background 0
+            emphasis_0 173 131 1
+            emphasis_1 0
+            emphasis_2 0
+            emphasis_3 0
+        }
+        multiplayer_user_colors {
+            player_1 94 64 157
+            player_2 32 94 166
+            player_3 0
+            player_4 173 131 1
+            player_5 36 131 123
+            player_6 0
+            player_7 175 48 41
+            player_8 0
+            player_9 0
+            player_10 0
+        }
+    }
+}
