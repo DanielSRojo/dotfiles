@@ -1,4 +1,4 @@
--- The dark half of the light/dark pair picked in github-theme.lua. Everforest is
+-- The dark half of the light/dark pair picked in flexoki.lua. Everforest is
 -- not one of the two colorschemes LazyVim bundles (tokyonight, catppuccin), so it
 -- needs its own spec. `lazy = true` overrides the
 -- `defaults.lazy = false` in config/lazy.lua on purpose: LazyVim loads the

@@ -48,7 +48,7 @@ pulls in:
 | jj      | `jj/conf.d/*work*.toml`       | jj layers `conf.d` on top of `config.toml`       |
 | nu      | `nushell/autoload/*work*.nu`  | nushell sources every `.nu` in `autoload`        |
 | ghostty | `ghostty/config.local`        | `config-file` at the end of `ghostty/config`     |
-| nvim    | `nvim/lua/config/local.lua`   | `pcall(require, ...)` in `plugins/github-theme.lua` |
+| nvim    | `nvim/lua/config/local.lua`   | `pcall(require, ...)` in `plugins/flexoki.lua`   |
 | git     | `~/.gitconfig`                | git reads it after `git/config`, so it wins      |
 
 zellij has a single shared config and no override file: keep OS-specific
@@ -68,7 +68,7 @@ inside it, and everything else asks ghostty:
 | ------- | -------------------------- | ----------------------- | -------------------------------- |
 | ghostty | GitHub Light High Contrast | ayu-dark                | live                             |
 | zellij  | github-light-high-contrast | ayu-dark                | live, `theme_light`/`theme_dark` |
-| nvim    | github_light_high_contrast | everforest              | when `background` changes        |
+| nvim    | flexoki-light              | everforest              | when `background` changes        |
 | bat     | GitHub-Light-High-Contrast | Ayu-Dark                | each run, `--theme=auto`         |
 | delta   | its default light syntax   | its default dark syntax | each run                         |
 
