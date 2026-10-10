@@ -1,0 +1,12 @@
+{
+  "workspace:previous-tab": [
+    { "modifiers": ["Alt"], "key": "H" },
+    { "modifiers": ["Ctrl", "Shift"], "key": "Tab" },
+    { "modifiers": ["Ctrl"], "key": "PageUp" }
+  ],
+  "workspace:next-tab": [
+    { "modifiers": ["Alt"], "key": "L" },
+    { "modifiers": ["Ctrl"], "key": "Tab" },
+    { "modifiers": ["Ctrl"], "key": "PageDown" }
+  ]
+}

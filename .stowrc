@@ -3,3 +3,4 @@
 --ignore=.jj
 --ignore=.DS_Store
 --ignore=README.md
+--ignore=obsidian

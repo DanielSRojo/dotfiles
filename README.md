@@ -12,7 +12,15 @@ bat cache --build     # required: see below
 
 # macOS only, and only after ~/.config/nushell exists as the stow link above:
 ln -s ~/.config/nushell ~/Library/Application\ Support/nushell
+
+# Obsidian hotkeys: the vault is not under ~/.config, so this one is linked by hand
+ln -sf ~/.dotfiles/obsidian/hotkeys.json ~/.obsidian/.obsidian/hotkeys.json
 ```
+
+`obsidian/` is in `.stowrc`'s ignore list: stow would otherwise link it into
+`~/.config/obsidian`, which is Obsidian's Electron profile, not the vault. The
+vault's `.obsidian/` is kept out of both its git repo and Syncthing, so the
+symlink stays local to each machine.
 
 `bat` does not read `bat/themes/*.tmTheme` directly — it only sees themes from a
 binary cache in `~/.cache/bat`, which is machine-local and not tracked here.
