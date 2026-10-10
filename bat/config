@@ -1,1 +1,3 @@
---theme="GitHub-Light-High-Contrast"
+# The default --theme=auto asks the terminal whether its background is light or dark.
+--theme-light="GitHub-Light-High-Contrast"
+--theme-dark="Ayu-Dark"

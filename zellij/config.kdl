@@ -257,6 +257,11 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 theme "github-light-high-contrast"
+
+// Follow ghostty, which tracks the desktop's light/dark switch and reports each
+// change; `theme` above only applies until the first report. ayu-dark is a builtin.
+theme_light "github-light-high-contrast"
+theme_dark "ayu-dark"
  
 // Choose the base input mode of zellij.
 // Default: normal

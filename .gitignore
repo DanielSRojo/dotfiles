@@ -20,7 +20,7 @@ nushell/plugin.msgpackz
 # with the live one and abort the whole run.
 nvim/lazyvim.json
 
-# Per-machine nvim overrides, read by lua/plugins/github-theme.lua.
+# Per-machine nvim colorscheme pin, read by lua/plugins/github-theme.lua.
 nvim/lua/config/local.lua
 
 # Everything under these directories is generated or machine-local: fisher

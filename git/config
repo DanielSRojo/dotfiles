@@ -4,6 +4,6 @@
 
 [delta]
     navigate = true  # use n and N to move between diff sections
-    light = true
-    # From bat/themes: delta sees it only after `bat cache --build`.
-    syntax-theme = GitHub-Light-High-Contrast
+    # No `light`/`dark` and no `syntax-theme`: delta asks the terminal which one it
+    # is (detect-dark-light defaults to auto) and picks its own default syntax
+    # theme for that mode. It has no per-mode syntax-theme to point at bat/themes.

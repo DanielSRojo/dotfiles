@@ -16,9 +16,8 @@ ln -s ~/.config/nushell ~/Library/Application\ Support/nushell
 
 `bat` does not read `bat/themes/*.tmTheme` directly — it only sees themes from a
 binary cache in `~/.cache/bat`, which is machine-local and not tracked here.
-Until `bat cache --build` runs, the `--theme="GitHub-Light-High-Contrast"` in
-`bat/config` silently falls back to bat's default theme, and so does delta's
-`syntax-theme` in `git/config`.
+Until `bat cache --build` runs, the light and dark themes in `bat/config`
+silently fall back to bat's default theme.
 
 ## Day to day
 
@@ -54,40 +53,30 @@ pulls in:
 
 zellij has a single shared config and no override file: keep OS-specific
 values out of it and lean on settings that parse everywhere (OSC 52 for its
-clipboard, `$EDITOR` for its scrollback editor). The one thing that does vary,
-its theme, comes in through ghostty instead (below). Likewise `font-thicken` in
+clipboard, `$EDITOR` for its scrollback editor). Likewise `font-thicken` in
 ghostty is macOS-only in effect but harmless to parse on Linux.
 
 ### Theme
 
-The shared default is GitHub Light High Contrast. A machine that keeps Ayu Dark
-(bluebox) overrides it in three untracked files. The Ayu themes stay tracked for
-this: `ghostty/themes/ayu-dark` and `bat/themes/Ayu-Dark.tmTheme`; zellij's
-`ayu-dark` is a builtin.
+Light by day, dark by night, on every machine with no override files. The OS
+decides: COSMIC's auto-switch flips at sunrise and sunset (tracked in
+`cosmic/com.system76.CosmicTheme.Mode/v1/auto_switch`); on macOS it is the
+system appearance. ghostty follows it and reports each change to the programs
+inside it, and everything else asks ghostty:
 
-`ghostty/config.local` covers ghostty, zellij and bat. Both `env` lines reach
-every shell started inside ghostty, zellij included. ghostty's `initial-command`
-hands `ZELLIJ_THEME` to zellij, which only applies it when the session is
-created: run `zellij delete-session main --force` once after setting it.
+| Tool    | Light                      | Dark                    | Switches                         |
+| ------- | -------------------------- | ----------------------- | -------------------------------- |
+| ghostty | GitHub Light High Contrast | ayu-dark                | live                             |
+| zellij  | github-light-high-contrast | ayu-dark                | live, `theme_light`/`theme_dark` |
+| nvim    | github_light_high_contrast | everforest              | when `background` changes        |
+| bat     | GitHub-Light-High-Contrast | Ayu-Dark                | each run, `--theme=auto`         |
+| delta   | its default light syntax   | its default dark syntax | each run                         |
 
-```
-theme = ayu-dark
-env = ZELLIJ_THEME=ayu-dark
-env = BAT_THEME=Ayu-Dark
-```
+nvim has no Ayu theme here, hence everforest. delta has no per-mode
+`syntax-theme`, so it uses its own defaults rather than `bat/themes`.
 
-`~/.gitconfig`, for delta, whose `syntax-theme` in `git/config` would otherwise
-win over `BAT_THEME`:
-
-```ini
-[delta]
-    light = false
-    dark = true
-    syntax-theme = Ayu-Dark
-```
-
-`nvim/lua/config/local.lua` (Ayu has no LazyVim theme here; everforest is what
-nvim ran before):
+To pin one colorscheme in nvim on a machine, return it from
+`nvim/lua/config/local.lua`:
 
 ```lua
 return { colorscheme = "everforest" }
