@@ -1,0 +1,6 @@
+(
+    idle_timeout: None,
+    fullscreen_idle_timeout: Some(3),
+    while_typing: true,
+    after_touch: true,
+)
