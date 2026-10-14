@@ -1,0 +1,183 @@
+{
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "9",
+    ): MoveToWorkspace(9),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "8",
+    ): MoveToWorkspace(8),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "XF86AudioRaiseVolume",
+        description: Some("audio output device"),
+    ): Spawn("pick-audio-output"),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "1",
+    ): MoveToWorkspace(1),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "period",
+    ): NextWorkspace,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "k",
+    ): Move(Up),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "n",
+    ): Minimize,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "6",
+    ): MoveToWorkspace(6),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "l",
+    ): Move(Right),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "5",
+    ): MoveToWorkspace(5),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "2",
+    ): MoveToWorkspace(2),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "7",
+    ): MoveToWorkspace(7),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "period",
+    ): MoveToNextWorkspace,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "0",
+    ): MoveToLastWorkspace,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "4",
+    ): MoveToWorkspace(4),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "XF86AudioLowerVolume",
+        description: Some("audio input device"),
+    ): Spawn("pick-audio-input"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "f",
+        description: Some("file manager"),
+    ): Spawn("cosmic-files"),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "j",
+    ): Move(Down),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "space",
+        description: Some("vicinae"),
+    ): Spawn("vicinae toggle"),
+    (
+        modifiers: [
+            Super,
+        ],
+    ): System(WorkspaceOverview),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "3",
+    ): MoveToWorkspace(3),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "h",
+    ): Move(Left),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "v",
+        description: Some("clipboard history"),
+    ): Spawn("pick-clipboard"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "comma",
+    ): PreviousWorkspace,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "Escape",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "comma",
+    ): MoveToPreviousWorkspace,
+    (
+        modifiers: [],
+        key: "XF86PowerOff",
+        description: Some("suspend"),
+    ): Spawn("systemctl suspend"),
+}
