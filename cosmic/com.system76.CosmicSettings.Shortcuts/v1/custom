@@ -134,7 +134,7 @@
         modifiers: [
             Super,
         ],
-    ): System(WorkspaceOverview),
+    ): Disable,
     (
         modifiers: [
             Super,
