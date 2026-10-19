@@ -60,7 +60,11 @@ confirm-close-surface = false
 # once. Only if that also dies do we drop to a shell that says why, keeping the
 # window up. A real quit takes longer and still closes. Discarding resurrection
 # state here is safe — a session that dies that fast has none worth keeping.
-initial-command = t=$(date +%s); zellij attach --create main; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij died in <3s (status $s); clearing stale session state"; zellij delete-session main --force; t=$(date +%s); zellij attach --create main; [ $(($(date +%s)-t)) -lt 3 ] && { echo "still dying immediately; dropping to a shell"; exec fish; }; }
+#
+# Ghostty runs this as `exec -l <command>`, so it must start with a program, not
+# shell syntax; hence the explicit bash wrapper. It inherits launchd's PATH,
+# which has no nix profile, so the wrapper prepends it before calling zellij.
+initial-command = /bin/bash --noprofile --norc -c 'PATH=/run/current-system/sw/bin:$PATH; t=$(date +%s); zellij attach --create main; s=$?; [ $(($(date +%s)-t)) -lt 3 ] && { echo "zellij died in <3s (status $s); clearing stale session state"; zellij delete-session main --force; t=$(date +%s); zellij attach --create main; [ $(($(date +%s)-t)) -lt 3 ] && { echo "still dying immediately; dropping to a shell"; exec fish; }; }'
 
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
