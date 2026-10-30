@@ -54,3 +54,9 @@ herdr/*.sock
 herdr/*.log
 herdr/session.json
 herdr/.plugins.lock
+
+# herdr-app writes its type stubs into every mod folder on start. Stow links
+# only main.js and mod.json while the folder already exists in ~/.config, but on
+# a machine where it doesn't, stow folds the whole folder and these land here.
+herdr-app/mods/*/gpui-kit.d.ts
+herdr-app/mods/*/jsconfig.json

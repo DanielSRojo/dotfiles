@@ -44,6 +44,24 @@ stow --adopt .
 
 This will move the file's content to the touched one and replace the original with a symlink to the new one.
 
+### Herdr app
+
+`herdr-app/` holds only what I wrote: `keys.json`, the `my-main` layout and the
+`prs`, `scratch` and `nav` mods. Herdr writes everything else in
+`~/.config/herdr-app` itself (its shipped layouts and mods, `AGENTS.md`, state),
+so that directory must stay a real one with links inside it:
+
+- On a new machine, start Herdr once before `stow`. Otherwise stow links the
+  whole `herdr-app` directory to this repo and Herdr writes all of its files here.
+- Herdr's live reload ignores edits that go through a symlink. After editing a
+  file here, touch its link so the window picks it up:
+  `touch -h ~/.config/herdr-app/mods/prs/main.js`. Restarting Herdr works too.
+- `ctrl-alt-shift-escape` (Herdr's reset) renames `keys.json` and the shown
+  layout to `*.reset-<time>`, which moves the links aside. To get them back,
+  delete the `*.reset-*` files and any `keys.json` Herdr wrote in their place,
+  then run `stow .`. Don't use `--adopt` here: it would copy Herdr's defaults
+  over the files in this repo.
+
 ## Per-machine settings
 
 Everything here is shared between the Linux and the macOS box, so anything that
