@@ -9,20 +9,26 @@ const STEP = { left: -1, right: 1 };
 
 const panesOf = (tab) => panes().filter((p) => p.tab === tab);
 
+function moveWithinTab(from, to) {
+  if (from.zoomed) run("pane.zoom", { pane: from.pane });
+  run("pane.focus", { pane: to.pane });
+  if (from.zoomed) run("pane.zoom", { pane: to.pane });
+}
+
 function step(by) {
   const at = focused();
   if (!at) return;
   const here = panesOf(at.tab);
   const i = here.findIndex((p) => p.pane === at.pane);
   const next = here[i + by];
-  if (i >= 0 && next) return run("pane.focus", { pane: next.pane });
+  if (i >= 0 && next) return moveWithinTab(here[i], next);
 
   const tabs = (spaces().find((s) => s.id === at.space)?.tabs ?? []).filter((t) => !t.settled);
   const t = tabs.findIndex((tab) => tab.id === at.tab);
   if (t < 0 || tabs.length < 2) return;
   const target = tabs[(t + by + tabs.length) % tabs.length];
   const there = panesOf(target.id);
-  const land = by > 0 ? there[0] : there.at(-1);
+  const land = there.find((p) => p.zoomed) ?? (by > 0 ? there[0] : there.at(-1));
   if (land) run("pane.focus", { pane: land.pane });
   else run("tab.select", { id: target.id });
 }
