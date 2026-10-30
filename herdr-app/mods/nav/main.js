@@ -1,5 +1,6 @@
 // "nav.left" / "nav.right": walk the panes of the shown tab in order; past the
 // first or last one, go on to the previous or next tab's last or first pane.
+// A tab with a zoomed pane counts as that pane alone.
 // Runs in a hidden host block so key commands reach it.
 
 import { View, div } from "gpui-kit";
@@ -7,28 +8,26 @@ import { focused, nextCommand, panes, props, run, spaces } from "herdr";
 
 const STEP = { left: -1, right: 1 };
 
-const panesOf = (tab) => panes().filter((p) => p.tab === tab);
-
-function moveWithinTab(from, to) {
-  if (from.zoomed) run("pane.zoom", { pane: from.pane });
-  run("pane.focus", { pane: to.pane });
-  if (from.zoomed) run("pane.zoom", { pane: to.pane });
+function shownPanesOf(tab) {
+  const all = panes().filter((p) => p.tab === tab);
+  const zoomed = all.find((p) => p.zoomed);
+  return zoomed ? [zoomed] : all;
 }
 
 function step(by) {
   const at = focused();
   if (!at) return;
-  const here = panesOf(at.tab);
+  const here = shownPanesOf(at.tab);
   const i = here.findIndex((p) => p.pane === at.pane);
   const next = here[i + by];
-  if (i >= 0 && next) return moveWithinTab(here[i], next);
+  if (i >= 0 && next) return run("pane.focus", { pane: next.pane });
 
   const tabs = (spaces().find((s) => s.id === at.space)?.tabs ?? []).filter((t) => !t.settled);
   const t = tabs.findIndex((tab) => tab.id === at.tab);
   if (t < 0 || tabs.length < 2) return;
   const target = tabs[(t + by + tabs.length) % tabs.length];
-  const there = panesOf(target.id);
-  const land = there.find((p) => p.zoomed) ?? (by > 0 ? there[0] : there.at(-1));
+  const there = shownPanesOf(target.id);
+  const land = by > 0 ? there[0] : there.at(-1);
   if (land) run("pane.focus", { pane: land.pane });
   else run("tab.select", { id: target.id });
 }
