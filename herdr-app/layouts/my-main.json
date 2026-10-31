@@ -98,6 +98,19 @@
               "host": true
             }
           }
+        },
+        {
+          "id": "scrollback-host",
+          "type": "block",
+          "size": {
+            "px": 0
+          },
+          "content": {
+            "mod": "scrollback",
+            "props": {
+              "host": true
+            }
+          }
         }
       ],
       "size": {

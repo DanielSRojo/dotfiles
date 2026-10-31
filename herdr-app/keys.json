@@ -68,7 +68,8 @@
     "alt-9": "tab.select:9",
     "alt-n": "pane.split:right",
     "alt-shift-n": "pane.split:down",
-    "alt-f": "scratch.toggle"
+    "alt-f": "scratch.toggle",
+    "ctrl-shift-e": "scrollback.edit"
   },
   "terminal": {
     "cmd-c": "terminal.copy",
