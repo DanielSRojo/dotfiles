@@ -1,19 +1,41 @@
 // A scratch shell in a dialog, toggled by "scratch.toggle" (alt-f): it takes the
 // keyboard when it opens; a click beside it hides it (the shell keeps running).
+// Each tab has its own, started in the folder of the pane focused when it was
+// first opened; it's ended once its tab is gone.
 // An overlay lives only as long as the mod copy that opened it, so a hidden host
 // block in the layout owns it; inside the dialog, the same mod draws the title bar.
 
 import { View, div, svg } from "gpui-kit";
 import { h_flex } from "gpui-base";
-import { hc, home, terminals, openOverlay, closeOverlay, nextCommand, props, shared, setShared, theme } from "herdr";
+import { focused, hc, spaces, terminals, openOverlay, closeOverlay, nextCommand, props, shared, setShared, theme } from "herdr";
 
 const NAME = "scratch";
 const OPEN = "scratch.window";
+const LABEL = "scratch.tab";
+
+// Remote tab ids and terminal addresses carry a "machine/" prefix; labels on
+// that machine don't.
+const local = (id) => id.slice(id.indexOf("/") + 1);
+const tabOf = (t) => {
+  const tab = t.labels?.[LABEL];
+  const slash = t.address.indexOf("/");
+  return tab && (slash < 0 ? tab : `${t.address.slice(0, slash)}/${tab}`);
+};
 
 async function scratchTerminal() {
-  const live = terminals().find((t) => t.name === NAME && t.state === "live");
+  const at = focused();
+  if (!at) return null;
+  const tabs = new Set(spaces().flatMap((s) => s.tabs.map((t) => t.id)));
+  const scratches = terminals().filter((t) => t.state === "live" && tabOf(t));
+  for (const t of scratches) if (!tabs.has(tabOf(t))) hc(["kill", t.address]);
+  const live = scratches.find((t) => tabOf(t) === at.tab);
   if (live) return live.address;
-  const r = await hc(["run", "--json", "--bg", "--keep", "--no-parent", "--name", NAME, "--cwd", home()]);
+
+  const machine = spaces().find((s) => s.id === at.space)?.machine;
+  const args = ["run", "--json", "--bg", "--keep", "--no-parent", "--label", `${LABEL}=${local(at.tab)}`];
+  if (at.cwd) args.push("--cwd", at.cwd);
+  if (machine) args.push("--on", machine);
+  const r = await hc(args);
   if (r.code !== 0) throw new Error(r.stderr.trim() || `hc exited ${r.code}`);
   return JSON.parse(r.stdout).address;
 }
@@ -42,7 +64,8 @@ async function toggle() {
     closeOverlay(open);
     return;
   }
-  openWindow(await scratchTerminal());
+  const address = await scratchTerminal();
+  if (address) openWindow(address);
 }
 
 export default class Scratch extends View {
