@@ -6,12 +6,31 @@
 import { View, div, svg } from "gpui-kit";
 import { h_flex } from "gpui-base";
 import * as fs from "fs/promises";
-import { exec, focused, hc, home, openOverlay, closeOverlay, nextCommand, props, shared, setShared, theme, appHome } from "herdr";
+import { exec, focused, hc, home, terminals, openOverlay, closeOverlay, nextCommand, props, shared, setShared, theme, appHome } from "herdr";
 
 const LINES = 100000;
 const EDITOR = "nvim";
 const SIZE = { width: 0.85, height: 0.85 }; // px, or up to 1: a share of the window
 const OPEN = "scrollback.open";
+
+// The scratch mod's dialog takes the keyboard while open, but focused() still
+// names the pane under it: then read this tab's scratch shell instead.
+const SCRATCH_OPEN = "scratch.window";
+const SCRATCH_LABEL = "scratch.tab";
+
+function sourceTerminal() {
+  const at = focused();
+  if (!at) return null;
+  if (shared(SCRATCH_OPEN)) {
+    const scratch = terminals().find((t) => {
+      const tab = t.labels?.[SCRATCH_LABEL];
+      const slash = t.address.indexOf("/");
+      return t.state === "live" && tab && (slash < 0 ? tab : `${t.address.slice(0, slash)}/${tab}`) === at.tab;
+    });
+    if (scratch) return scratch.address;
+  }
+  return at.terminal;
+}
 
 // The editor's terminal starts at hc's default size (120x200); nvim started
 // before the dialog resizes it draws a blank screen, so wait for that resize.
@@ -54,7 +73,7 @@ async function edit(cx) {
     closeOverlay(open);
     return;
   }
-  const source = focused()?.terminal;
+  const source = sourceTerminal();
   if (!source) return;
   // A hidden file in this mod's folder (fs writes only under the app's home);
   // hidden files don't reload the mod.
