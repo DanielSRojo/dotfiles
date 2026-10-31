@@ -1,6 +1,7 @@
-// A floating scratch shell, toggled by "scratch.toggle" (alt-f).
-// A window lives only as long as the mod copy that opened it, so a hidden host
-// block in the layout owns it; inside the window, the same mod draws the title bar.
+// A scratch shell in a dialog, toggled by "scratch.toggle" (alt-f): it takes the
+// keyboard when it opens; a click beside it hides it (the shell keeps running).
+// An overlay lives only as long as the mod copy that opened it, so a hidden host
+// block in the layout owns it; inside the dialog, the same mod draws the title bar.
 
 import { View, div, svg } from "gpui-kit";
 import { h_flex } from "gpui-base";
@@ -19,10 +20,10 @@ async function scratchTerminal() {
 
 function openWindow(address) {
   const id = openOverlay({
-    kind: "window",
+    kind: "dialog",
     key: NAME,
     width: 0.6,
-    height: 0.5,
+    height: 0.8,
     layout: {
       type: "column",
       children: [
