@@ -69,7 +69,8 @@
     "alt-n": "pane.split:right",
     "alt-shift-n": "pane.split:down",
     "alt-f": "scratch.toggle",
-    "ctrl-shift-e": "scrollback.edit"
+    "ctrl-shift-e": "scrollback.edit",
+    "secondary-f12": "app.help"
   },
   "terminal": {
     "cmd-c": "terminal.copy",
