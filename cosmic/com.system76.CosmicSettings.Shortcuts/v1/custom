@@ -168,6 +168,14 @@
         ],
         key: "Escape",
     ): Disable,
+    // Super+W: leave it to the focused app (herdr closes a pane) instead of
+    // opening COSMIC's workspace overview.
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "w",
+    ): Disable,
     (
         modifiers: [
             Super,
@@ -180,4 +188,16 @@
         key: "XF86PowerOff",
         description: Some("suspend"),
     ): Spawn("systemctl suspend"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "t",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "Return",
+    ): System(Terminal),
 }
