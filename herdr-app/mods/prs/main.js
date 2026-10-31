@@ -2,7 +2,14 @@
 
 import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
-import { exec, theme, layout } from "herdr";
+import { exec, theme, layout, window } from "herdr";
+
+function openUrl(url) {
+  const platform = window()?.platform;
+  if (platform === "macos") return exec("open", [url]);
+  if (platform === "windows") return exec("cmd", ["/c", "start", "", url]);
+  return exec("xdg-open", [url]);
+}
 
 const REFRESH_MS = 120000;
 const PR_FIELDS = `nodes { ... on PullRequest {
@@ -94,7 +101,7 @@ export default class Prs extends View {
       .cursor_pointer()
       .hover((s) => s.bg(t.hover))
       .tooltip(pr.url)
-      .on_click(() => exec("open", [pr.url]))
+      .on_click(() => openUrl(pr.url))
       .child(h_flex().gap(7).items_center()
         .child(this.checks(t, checksOf(pr)))
         .child(div().flex_1().min_w(0).truncate().text_color(pr.isDraft ? t.muted : t.foreground).child(pr.title)))
