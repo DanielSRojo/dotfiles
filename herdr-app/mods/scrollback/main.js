@@ -123,7 +123,10 @@ export default class Scrollback extends View {
     setShared(OPEN, null);
     cx.spawn(async (cx) => {
       for (;;) {
-        if ((await nextCommand()) === "edit") await edit(cx).catch((e) => console.log(`scrollback: ${e.message}`));
+        const command = await nextCommand();
+        // Throws in a build replaced by a hot reload, so only the live one acts.
+        cx.notify();
+        if (command === "edit") await edit(cx).catch((e) => console.log(`scrollback: ${e.message}`));
       }
     });
   }

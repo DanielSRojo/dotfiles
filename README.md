@@ -53,9 +53,12 @@ so that directory must stay a real one with links inside it:
 
 - On a new machine, start Herdr once before `stow`. Otherwise stow links the
   whole `herdr-app` directory to this repo and Herdr writes all of its files here.
-- Herdr's live reload ignores edits that go through a symlink. After editing a
-  file here, touch its link so the window picks it up:
-  `touch -h ~/.config/herdr-app/mods/prs/main.js`. Restarting Herdr works too.
+- Each mod folder in `~/.config/herdr-app/mods` is one link to its folder here.
+  Herdr's live reload doesn't see edits made through a link, so after editing a
+  mod, touch its link to reload it: `touch -h ~/.config/herdr-app/mods/nav`.
+- A mod that waits on `nextCommand()` must use `cx` (`cx.notify()`) each time a
+  command arrives. Otherwise a build replaced by a live reload keeps running,
+  and the same key ends up handled twice.
 - `ctrl-alt-shift-escape` (Herdr's reset) renames `keys.json` and the shown
   layout to `*.reset-<time>`, which moves the links aside. To get them back,
   delete the `*.reset-*` files and any `keys.json` Herdr wrote in their place,

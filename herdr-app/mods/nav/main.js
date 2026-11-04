@@ -1,6 +1,6 @@
-// "nav.left" / "nav.right": walk the panes of the shown tab in order; past the
-// first or last one, go on to the previous or next tab's last or first pane.
-// A tab with a zoomed pane counts as that pane alone.
+// "nav.left" / "nav.right": go to the pane on that side of the shown tab, like
+// pane.go; with no pane there, go on to the previous or next tab's last or
+// first pane. A tab with a zoomed pane counts as that pane alone.
 // Runs in a hidden host block so key commands reach it.
 
 import { View, div } from "gpui-kit";
@@ -14,14 +14,18 @@ function shownPanesOf(tab) {
   return zoomed ? [zoomed] : all;
 }
 
-function step(by) {
-  const at = focused();
-  if (!at) return;
-  const here = shownPanesOf(at.tab);
-  const i = here.findIndex((p) => p.pane === at.pane);
-  const next = here[i + by];
-  if (i >= 0 && next) return run("pane.focus", { pane: next.pane });
+async function movedSideways(direction, from, cx) {
+  run("pane.go", { direction });
+  // pane.go lands a frame or more after run() returns, and says nothing when
+  // there is no pane that way, so wait a little for focus to move.
+  for (let frame = 0; frame < 6; frame++) {
+    if (focused()?.pane !== from) return true;
+    await cx.sleep(16);
+  }
+  return focused()?.pane !== from;
+}
 
+function crossTab(at, by) {
   const tabs = (spaces().find((s) => s.id === at.space)?.tabs ?? []).filter((t) => !t.settled);
   const t = tabs.findIndex((tab) => tab.id === at.tab);
   if (t < 0 || tabs.length < 2) return;
@@ -32,13 +36,23 @@ function step(by) {
   else run("tab.select", { id: target.id });
 }
 
+async function step(direction, cx) {
+  const at = focused();
+  if (!at) return;
+  const alone = shownPanesOf(at.tab).length < 2;
+  if (at.pane && !alone && (await movedSideways(direction, at.pane, cx))) return;
+  crossTab(at, STEP[direction]);
+}
+
 export default class Nav extends View {
   init(_props, cx) {
     if (!props()?.host) return;
-    cx.spawn(async () => {
+    cx.spawn(async (cx) => {
       for (;;) {
-        const by = STEP[await nextCommand()];
-        if (by) step(by);
+        const direction = await nextCommand();
+        // Throws in a build replaced by a hot reload, so only the live one acts.
+        cx.notify();
+        if (direction in STEP) await step(direction, cx);
       }
     });
   }

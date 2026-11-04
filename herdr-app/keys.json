@@ -57,6 +57,8 @@
     "ctrl-9": "space.select:9",
     "alt-h": "nav.left",
     "alt-l": "nav.right",
+    "alt-j": "pane.go:down",
+    "alt-k": "pane.go:up",
     "alt-1": "tab.select:1",
     "alt-2": "tab.select:2",
     "alt-3": "tab.select:3",

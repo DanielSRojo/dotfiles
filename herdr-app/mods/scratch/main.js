@@ -72,9 +72,12 @@ export default class Scratch extends View {
   init(_props, cx) {
     if (!props()?.host) return;
     setShared(OPEN, null);
-    cx.spawn(async () => {
+    cx.spawn(async (cx) => {
       for (;;) {
-        if ((await nextCommand()) === "toggle") await toggle();
+        const command = await nextCommand();
+        // Throws in a build replaced by a hot reload, so only the live one acts.
+        cx.notify();
+        if (command === "toggle") await toggle();
       }
     });
   }
