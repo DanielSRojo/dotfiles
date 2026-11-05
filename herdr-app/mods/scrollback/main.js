@@ -1,7 +1,8 @@
 // "scrollback.edit": open the focused terminal's whole history in $EDITOR
 // (nvim) in a dialog, like zellij's edit-scrollback; the same key again closes
 // it. Quitting the editor closes the dialog. Runs in a hidden host block so key
-// commands reach it.
+// commands reach it. An opencode pane has no terminal history (it draws on the
+// alternate screen), so its session is exported as Markdown instead.
 
 import { View, div, svg } from "gpui-kit";
 import { h_flex } from "gpui-base";
@@ -66,6 +67,50 @@ async function read(source, lines) {
   return out.join("\n") + "\n";
 }
 
+// opencode draws on the alternate screen, so the terminal has no history of it.
+// The terminal reports its session id (records), so export that session instead.
+const TOOL_LINES = 40;
+
+function opencodeSession(address) {
+  const t = terminals().find((x) => x.address === address);
+  const sessions = Object.entries(t?.records ?? {}).filter(([id, r]) => r?.app === "opencode" && id.startsWith("ses_"));
+  if (!sessions.length) return null;
+  const title = t.status?.title ?? t.report?.title;
+  const [id] = sessions.find(([, r]) => r.title === title) ?? sessions.at(-1);
+  return { id, cwd: t.foreground?.cwd ?? t.cwd ?? home() };
+}
+
+const clip = (text, max) => {
+  const lines = String(text).replace(/\s+$/, "").split("\n");
+  return lines.length > max ? [...lines.slice(0, max), `… ${lines.length - max} more lines`].join("\n") : lines.join("\n");
+};
+
+function transcript(data) {
+  const out = [`# ${data.info?.title ?? "opencode session"}`, ""];
+  for (const m of data.messages ?? []) {
+    if (m.type === "user") {
+      out.push("## User", "", String(m.text ?? "").trim(), "");
+      for (const f of m.files ?? []) out.push(`- ${f.name ?? f.path ?? f.uri ?? f.url ?? JSON.stringify(f)}`);
+      if (m.files?.length) out.push("");
+    } else if (m.type === "assistant") {
+      out.push("## Assistant", "");
+      for (const p of m.content ?? []) {
+        if (p.type === "text") out.push(p.text.trim(), "");
+        else if (p.type === "reasoning" && p.text?.trim()) out.push(...p.text.trim().split("\n").map((l) => `> ${l}`), "");
+        else if (p.type === "tool") {
+          const s = p.state ?? {};
+          out.push(`### ${p.name}${s.status === "error" ? " (failed)" : ""}`, "", "~~~", clip(JSON.stringify(s.input ?? {}), 10), "~~~", "");
+          const body = s.status === "error"
+            ? (s.error?.message ?? JSON.stringify(s.error))
+            : (s.content ?? []).map((c) => (c.type === "text" ? c.text : `[${c.type}]`)).join("\n");
+          if (body.trim()) out.push("~~~", clip(body, TOOL_LINES), "~~~", "");
+        }
+      }
+    }
+  }
+  return out.join("\n") + "\n";
+}
+
 async function edit(cx) {
   const open = shared(OPEN);
   if (open) {
@@ -75,10 +120,23 @@ async function edit(cx) {
   }
   const source = sourceTerminal();
   if (!source) return;
-  // A hidden file in this mod's folder (fs writes only under the app's home);
-  // hidden files don't reload the mod.
-  const file = `${appHome()}/mods/scrollback/.history-${Date.now()}.txt`;
-  const screen = await read(source, 0);
+  // In the mod's data folder: fs only writes under the app's home, and the
+  // mod folder is a link out of it, so a path through it is refused.
+  const dir = `${appHome()}/data/scrollback`;
+  await fs.mkdir(dir, { recursive: true });
+  let exported = null;
+  const session = opencodeSession(source);
+  if (session) {
+    const r = await exec("opencode", ["session", "export", session.id], { cwd: session.cwd }).catch((e) => ({ code: -1, stderr: String(e.message || e) }));
+    try {
+      if (r.code !== 0) throw new Error(r.stderr.trim() || `opencode exited ${r.code}`);
+      exported = transcript(JSON.parse(r.stdout));
+    } catch (e) {
+      console.log(`scrollback: opencode export failed, showing the screen: ${e.message}`);
+    }
+  }
+  const file = `${dir}/history-${Date.now()}.${exported ? "md" : "txt"}`;
+  const screen = exported ?? await read(source, 0);
   await fs.writeFile(file, screen);
   const r = await hc(["run", "--json", "--bg", "--no-parent", "--rm", "--name", `scrollback-${Date.now() % 1e6}`,
     "--cwd", home(), "--", "sh", "-c", SCRIPT, "sh", file]);
@@ -100,6 +158,7 @@ async function edit(cx) {
   });
   setShared(OPEN, id);
 
+  if (exported) return;
   cx.spawn(async (cx) => {
     const full = await read(source, LINES);
     if (full === screen || shared(OPEN) !== id) return;

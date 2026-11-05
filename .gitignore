@@ -60,7 +60,3 @@ herdr/.plugins.lock
 herdr-app/mods/*/gpui-kit.d.ts
 herdr-app/mods/*/jsconfig.json
 
-# The scrollback mod writes the history it opens into its own folder (mods may
-# only write under ~/.config/herdr-app): a temp file, nvim's socket and the
-# older lines, removed when the editor closes.
-herdr-app/mods/scrollback/.history-*
