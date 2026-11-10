@@ -21,6 +21,7 @@ fish_add_path -g /sbin /usr/sbin \
     $HOME/.bun/bin \
     $HOME/.krew/bin \
     $HOME/.local/bin \
+    $HOME/.npm-global/bin \
     $HOME/.cargo/bin \
     $HOME/go/bin \
     /usr/local/go/bin

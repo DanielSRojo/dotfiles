@@ -31,7 +31,7 @@ abbr -a .. 'cd ..'
 abbr -a gr 'go run .'
 
 # Jujutsu
-abbr -a j 'jj'
+abbr -a j jj
 abbr -a js 'jj st'
 abbr -a jl 'jj log'
 abbr -a jll 'jj log -r "all()" --limit 40'
@@ -91,3 +91,6 @@ abbr -a kdep 'kubectl delete pod --all-namespaces --field-selector=status.phase=
 abbr -a ekc 'set -x KUBECONFIG ~/.kube/config.d/local'
 abbr -a kcn 'kubectl config set-context --current --namespace'
 abbr -a kgn 'kubectl get namespace'
+
+# Others
+abbr -a oc opencode
