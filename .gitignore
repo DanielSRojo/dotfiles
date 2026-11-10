@@ -60,3 +60,12 @@ herdr/.plugins.lock
 herdr-app/mods/*/gpui-kit.d.ts
 herdr-app/mods/*/jsconfig.json
 
+
+# opencode keeps runtime files beside its config, in the dir stow points at
+# this repo if it ever gets folded: a plaintext server password, installed
+# dependencies, lockfiles, and the herdr-managed plugin that herdr rewrites.
+opencode/service.json
+opencode/node_modules/
+opencode/package-lock.json
+opencode/bun.lock
+opencode/herdr-tui-session.js
