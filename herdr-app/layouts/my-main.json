@@ -72,45 +72,6 @@
           "size": {
             "px": 69
           }
-        },
-        {
-          "id": "scratch-host",
-          "type": "block",
-          "size": {
-            "px": 0
-          },
-          "content": {
-            "mod": "scratch",
-            "props": {
-              "host": true
-            }
-          }
-        },
-        {
-          "id": "nav-host",
-          "type": "block",
-          "size": {
-            "px": 0
-          },
-          "content": {
-            "mod": "nav",
-            "props": {
-              "host": true
-            }
-          }
-        },
-        {
-          "id": "scrollback-host",
-          "type": "block",
-          "size": {
-            "px": 0
-          },
-          "content": {
-            "mod": "scrollback",
-            "props": {
-              "host": true
-            }
-          }
         }
       ],
       "size": {
@@ -214,6 +175,45 @@
           },
           "size": {
             "px": 28
+          }
+        },
+        {
+          "id": "scratch-host",
+          "type": "block",
+          "size": {
+            "px": 0
+          },
+          "content": {
+            "mod": "scratch",
+            "props": {
+              "host": true
+            }
+          }
+        },
+        {
+          "id": "nav-host",
+          "type": "block",
+          "size": {
+            "px": 0
+          },
+          "content": {
+            "mod": "nav",
+            "props": {
+              "host": true
+            }
+          }
+        },
+        {
+          "id": "scrollback-host",
+          "type": "block",
+          "size": {
+            "px": 0
+          },
+          "content": {
+            "mod": "scrollback",
+            "props": {
+              "host": true
+            }
           }
         }
       ],

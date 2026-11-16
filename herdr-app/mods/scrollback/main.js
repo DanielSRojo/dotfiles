@@ -71,13 +71,30 @@ async function read(source, lines) {
 // The terminal reports its session id (records), so export that session instead.
 const TOOL_LINES = 40;
 
-function opencodeSession(address) {
+// The records only exist while a session is busy, so an idle opencode has
+// none: then use --session on its command line, else the session of its
+// folder whose title the terminal's title ("OC | <title>") shows.
+async function opencodeSession(address) {
   const t = terminals().find((x) => x.address === address);
-  const sessions = Object.entries(t?.records ?? {}).filter(([id, r]) => r?.app === "opencode" && id.startsWith("ses_"));
-  if (!sessions.length) return null;
-  const title = t.status?.title ?? t.report?.title;
-  const [id] = sessions.find(([, r]) => r.title === title) ?? sessions.at(-1);
-  return { id, cwd: t.foreground?.cwd ?? t.cwd ?? home() };
+  if (!t) return null;
+  const cwd = t.foreground?.cwd ?? t.cwd ?? home();
+  const title = t.status?.title ?? t.report?.title ?? t.title?.replace(/^OC \| /, "");
+  const sessions = Object.entries(t.records ?? {}).filter(([id, r]) => r?.app === "opencode" && id.startsWith("ses_"));
+  if (sessions.length) {
+    const [id] = sessions.find(([, r]) => r.title === title) ?? sessions.at(-1);
+    return { id, cwd };
+  }
+  const argv = t.foreground?.argv ?? [];
+  const flag = argv.findIndex((a) => a === "--session" || a === "-s");
+  const given = flag >= 0 ? argv[flag + 1] : argv.find((a) => a.startsWith("--session="))?.slice(10);
+  if (given?.startsWith("ses_")) return { id: given, cwd };
+  if (t.foreground?.name !== "opencode" && t.report?.app !== "opencode") return null;
+  const r = await exec("opencode", ["session", "list", "--format", "json"], { cwd }).catch(() => null);
+  if (r?.code !== 0) return null;
+  let list;
+  try { list = JSON.parse(r.stdout); } catch { return null; }
+  const match = title ? list.find((s) => s.title === title) : null;
+  return match ? { id: match.id, cwd } : null;
 }
 
 const clip = (text, max) => {
@@ -125,7 +142,7 @@ async function edit(cx) {
   const dir = `${appHome()}/data/scrollback`;
   await fs.mkdir(dir, { recursive: true });
   let exported = null;
-  const session = opencodeSession(source);
+  const session = await opencodeSession(source);
   if (session) {
     const r = await exec("opencode", ["session", "export", session.id], { cwd: session.cwd }).catch((e) => ({ code: -1, stderr: String(e.message || e) }));
     try {
